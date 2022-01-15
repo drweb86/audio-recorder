@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace HDE.AudioRecorder
 {
     public partial class MainForm : Form
@@ -32,6 +34,33 @@ namespace HDE.AudioRecorder
             _audioOutputDeviceComboBox.EndUpdate();
 
             _outputFolderTextBox.Text = Program.Controller.Model.OutputFolder;
+        }
+
+        private void _startRecordingButton_Click(object sender, EventArgs e)
+        {
+            if (Program.Controller.IsAudioRecording)
+            {
+                Program.Controller.Stop();
+                _startRecordingButton.Text = "Start";
+                _linkFileLinkLabel.Visible = true;
+            }
+            else
+            {
+                var fileName = Program.Controller.Start(_audioInputDeviceComboBox.Text, _audioOutputDeviceComboBox.Text, _outputFolderTextBox.Text);
+                _startRecordingButton.Text = "Stop";
+                _linkFileLinkLabel.Text = fileName;
+                _linkFileLinkLabel.Visible = false;
+            }
+        }
+
+        private void _linkFileLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = _outputFolderTextBox.Text,
+                UseShellExecute = true,
+                Verb = "open"
+            });
         }
     }
 }

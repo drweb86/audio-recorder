@@ -5,6 +5,32 @@ namespace HDE.AudioRecorder.Services
 {
     internal class AudioDevicesListService
     {
+        public MMDevice GetInputDevice(string friendlyName)
+        {
+            using (var enumerator = new MMDeviceEnumerator())
+            {
+                foreach (MMDevice device in enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+                {
+                    if (device.FriendlyName == friendlyName)
+                        return device;
+                }
+            }
+            throw new Exception("Device was not found!");
+        }
+
+        public MMDevice GetOutputDevice(string friendlyName)
+        {
+            using (var enumerator = new MMDeviceEnumerator())
+            {
+                foreach (MMDevice device in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+                {
+                    if (device.FriendlyName == friendlyName)
+                        return device;
+                }
+            }
+            throw new Exception("Device was not found!");
+        }
+
         public List<string> GetInputDevices()
         {
             var names = new List<string>();

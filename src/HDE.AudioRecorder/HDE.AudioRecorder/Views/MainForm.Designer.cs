@@ -30,6 +30,7 @@
         {
             this._mainTabControl = new System.Windows.Forms.TabControl();
             this._recordingTabPage = new System.Windows.Forms.TabPage();
+            this._linkFileLinkLabel = new System.Windows.Forms.LinkLabel();
             this._startRecordingButton = new System.Windows.Forms.Button();
             this._settingsTabPage = new System.Windows.Forms.TabPage();
             this._mainSettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -59,6 +60,7 @@
             // 
             // _recordingTabPage
             // 
+            this._recordingTabPage.Controls.Add(this._linkFileLinkLabel);
             this._recordingTabPage.Controls.Add(this._startRecordingButton);
             this._recordingTabPage.Location = new System.Drawing.Point(4, 24);
             this._recordingTabPage.Name = "_recordingTabPage";
@@ -69,14 +71,27 @@
             this._recordingTabPage.UseVisualStyleBackColor = true;
             this._recordingTabPage.Click += new System.EventHandler(this._recordingTabPage_Click);
             // 
+            // _linkFileLinkLabel
+            // 
+            this._linkFileLinkLabel.AutoSize = true;
+            this._linkFileLinkLabel.Location = new System.Drawing.Point(37, 139);
+            this._linkFileLinkLabel.Name = "_linkFileLinkLabel";
+            this._linkFileLinkLabel.Size = new System.Drawing.Size(60, 15);
+            this._linkFileLinkLabel.TabIndex = 1;
+            this._linkFileLinkLabel.TabStop = true;
+            this._linkFileLinkLabel.Text = "linkLabel1";
+            this._linkFileLinkLabel.Visible = false;
+            this._linkFileLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._linkFileLinkLabel_LinkClicked);
+            // 
             // _startRecordingButton
             // 
             this._startRecordingButton.Location = new System.Drawing.Point(37, 41);
             this._startRecordingButton.Name = "_startRecordingButton";
             this._startRecordingButton.Size = new System.Drawing.Size(136, 82);
             this._startRecordingButton.TabIndex = 0;
-            this._startRecordingButton.Text = "Start Recording";
+            this._startRecordingButton.Text = "Record";
             this._startRecordingButton.UseVisualStyleBackColor = true;
+            this._startRecordingButton.Click += new System.EventHandler(this._startRecordingButton_Click);
             // 
             // _settingsTabPage
             // 
@@ -183,6 +198,7 @@
             this.Load += new System.EventHandler(this.OnLoad);
             this._mainTabControl.ResumeLayout(false);
             this._recordingTabPage.ResumeLayout(false);
+            this._recordingTabPage.PerformLayout();
             this._settingsTabPage.ResumeLayout(false);
             this._mainSettingsTableLayoutPanel.ResumeLayout(false);
             this._mainSettingsTableLayoutPanel.PerformLayout();
@@ -203,5 +219,6 @@
         private ComboBox _audioOutputDeviceComboBox;
         private ComboBox _audioInputDeviceComboBox;
         private TextBox _outputFolderTextBox;
+        private LinkLabel _linkFileLinkLabel;
     }
 }
