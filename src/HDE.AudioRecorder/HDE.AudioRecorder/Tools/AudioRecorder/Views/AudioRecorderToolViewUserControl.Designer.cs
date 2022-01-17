@@ -1,14 +1,14 @@
-﻿namespace HDE.AudioRecorder
+﻿namespace HDE.AudioRecorder.Tools.AudioRecorder.Views
 {
-    partial class ShellMainForm
+    partial class AudioRecorderToolViewUserControl
     {
-        /// <summary>
-        ///  Required designer variable.
+        /// <summary> 
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
+        /// <summary> 
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -40,25 +40,22 @@
             this._audioOutputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this._audioInputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this._outputFolderTextBox = new System.Windows.Forms.TextBox();
-            this._shellTabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this._shellMenuStrip = new System.Windows.Forms.MenuStrip();
             this._mainTabControl.SuspendLayout();
             this._recordingTabPage.SuspendLayout();
             this._settingsTabPage.SuspendLayout();
             this._mainSettingsTableLayoutPanel.SuspendLayout();
-            this._shellTabControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // _mainTabControl
             // 
             this._mainTabControl.Controls.Add(this._recordingTabPage);
             this._mainTabControl.Controls.Add(this._settingsTabPage);
-            this._mainTabControl.Location = new System.Drawing.Point(595, 117);
+            this._mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._mainTabControl.Location = new System.Drawing.Point(0, 0);
             this._mainTabControl.Name = "_mainTabControl";
             this._mainTabControl.SelectedIndex = 0;
-            this._mainTabControl.Size = new System.Drawing.Size(569, 315);
-            this._mainTabControl.TabIndex = 0;
+            this._mainTabControl.Size = new System.Drawing.Size(871, 417);
+            this._mainTabControl.TabIndex = 1;
             // 
             // _recordingTabPage
             // 
@@ -67,7 +64,7 @@
             this._recordingTabPage.Location = new System.Drawing.Point(4, 24);
             this._recordingTabPage.Name = "_recordingTabPage";
             this._recordingTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._recordingTabPage.Size = new System.Drawing.Size(561, 287);
+            this._recordingTabPage.Size = new System.Drawing.Size(863, 389);
             this._recordingTabPage.TabIndex = 0;
             this._recordingTabPage.Text = "Recording";
             this._recordingTabPage.UseVisualStyleBackColor = true;
@@ -75,7 +72,7 @@
             // _linkFileLinkLabel
             // 
             this._linkFileLinkLabel.AutoSize = true;
-            this._linkFileLinkLabel.Location = new System.Drawing.Point(37, 139);
+            this._linkFileLinkLabel.Location = new System.Drawing.Point(40, 142);
             this._linkFileLinkLabel.Name = "_linkFileLinkLabel";
             this._linkFileLinkLabel.Size = new System.Drawing.Size(60, 15);
             this._linkFileLinkLabel.TabIndex = 1;
@@ -188,54 +185,20 @@
             this._outputFolderTextBox.Size = new System.Drawing.Size(420, 23);
             this._outputFolderTextBox.TabIndex = 3;
             // 
-            // _shellTabControl
-            // 
-            this._shellTabControl.Controls.Add(this.tabPage1);
-            this._shellTabControl.Location = new System.Drawing.Point(23, 51);
-            this._shellTabControl.Name = "_shellTabControl";
-            this._shellTabControl.SelectedIndex = 0;
-            this._shellTabControl.Size = new System.Drawing.Size(433, 262);
-            this._shellTabControl.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(425, 234);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // _shellMenuStrip
-            // 
-            this._shellMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this._shellMenuStrip.Name = "_shellMenuStrip";
-            this._shellMenuStrip.Size = new System.Drawing.Size(1215, 24);
-            this._shellMenuStrip.TabIndex = 2;
-            this._shellMenuStrip.Text = "menuStrip1";
-            // 
-            // ShellMainForm
+            // AudioRecorderToolViewUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1215, 453);
-            this.Controls.Add(this._shellTabControl);
             this.Controls.Add(this._mainTabControl);
-            this.Controls.Add(this._shellMenuStrip);
-            this.MainMenuStrip = this._shellMenuStrip;
-            this.Name = "ShellMainForm";
-            this.Text = "Recording Conference Calls ( https://github.com/drweb86/audio-recorder )";
-            this.Load += new System.EventHandler(this.OnLoad);
+            this.Name = "AudioRecorderToolViewUserControl";
+            this.Size = new System.Drawing.Size(871, 417);
             this._mainTabControl.ResumeLayout(false);
             this._recordingTabPage.ResumeLayout(false);
             this._recordingTabPage.PerformLayout();
             this._settingsTabPage.ResumeLayout(false);
             this._mainSettingsTableLayoutPanel.ResumeLayout(false);
             this._mainSettingsTableLayoutPanel.PerformLayout();
-            this._shellTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -243,8 +206,9 @@
 
         private TabControl _mainTabControl;
         private TabPage _recordingTabPage;
-        private TabPage _settingsTabPage;
+        private LinkLabel _linkFileLinkLabel;
         private Button _startRecordingButton;
+        private TabPage _settingsTabPage;
         private TableLayoutPanel _mainSettingsTableLayoutPanel;
         private Label _inputDeviceLabel;
         private Label _chooseOutputDeviceLabel;
@@ -252,9 +216,5 @@
         private ComboBox _audioOutputDeviceComboBox;
         private ComboBox _audioInputDeviceComboBox;
         private TextBox _outputFolderTextBox;
-        private LinkLabel _linkFileLinkLabel;
-        private TabControl _shellTabControl;
-        private TabPage tabPage1;
-        private MenuStrip _shellMenuStrip;
     }
 }

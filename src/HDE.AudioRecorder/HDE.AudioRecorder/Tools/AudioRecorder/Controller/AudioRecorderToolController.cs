@@ -1,14 +1,21 @@
 ﻿using HDE.AudioRecorder.Model;
 using HDE.AudioRecorder.Services;
+using HDE.Platform.Logging;
 
-namespace HDE.AudioRecorder.Controller
+namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 {
-    internal class AppController
+    class AudioRecorderToolController: IDisposable
     {
         public readonly AppModel Model = new AppModel();
+        public readonly ILog Log;
 
         private readonly AudioDevicesListService _audioDevicesListService = new AudioDevicesListService();
         private readonly AudioRecorderService _audioRecorderService = new AudioRecorderService();
+        
+        public AudioRecorderToolController(ILog log)
+        {
+            Log = log;
+        }
 
         public void Initialize()
         {
@@ -38,6 +45,11 @@ namespace HDE.AudioRecorder.Controller
         public void Stop()
         {
             _audioRecorderService.StopRecording();
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NAudio" Version="2.0.1" />
   </ItemGroup>
 
@@ -17,10 +23,6 @@
       <HintPath>Bins\HDE.Platform\HDE.Platform.dll</HintPath>
       <CopyLocal>True</CopyLocal>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
