@@ -1,22 +1,30 @@
+using HDE.AudioRecorder.SingleToolShell;
+using HDE.Platform.AspectOrientedFramework.WinForms;
 using System.Diagnostics;
 
 namespace HDE.AudioRecorder
 {
-    public partial class MainForm : Form
+    public partial class ShellMainForm : Form, IMainFormView
     {
-        public MainForm()
+        private ShellController _shellController;
+        public TabControl TabControl
+        {
+            get { return _shellTabControl; }
+        }
+
+        public MenuStrip MainMenu
+        {
+            get { return _shellMenuStrip; }
+        }
+
+        public void SetController(object controller)
+        {
+            _shellController = (ShellController)controller;
+        }
+
+        public ShellMainForm()
         {
             InitializeComponent();
-        }
-
-        private void _mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _recordingTabPage_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -55,7 +63,7 @@ namespace HDE.AudioRecorder
 
         private void _linkFileLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            Process.Start(new ProcessStartInfo
             {
                 FileName = _outputFolderTextBox.Text,
                 UseShellExecute = true,

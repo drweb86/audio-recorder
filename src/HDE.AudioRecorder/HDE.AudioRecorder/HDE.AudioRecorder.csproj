@@ -12,4 +12,21 @@
     <PackageReference Include="NAudio" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="HDE.Platform">
+      <HintPath>Bins\HDE.Platform\HDE.Platform.dll</HintPath>
+      <CopyLocal>True</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="HDE.AudioRecorder.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
