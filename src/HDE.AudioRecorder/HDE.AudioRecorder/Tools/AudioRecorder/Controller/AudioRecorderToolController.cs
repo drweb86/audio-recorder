@@ -1,50 +1,41 @@
-﻿using HDE.AudioRecorder.Model;
-using HDE.AudioRecorder.Services;
+﻿using HDE.AudioRecorder.Tools.AudioRecorder.Commands;
+using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 using HDE.Platform.Logging;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 {
+
     class AudioRecorderToolController: IDisposable
     {
-        public readonly AppModel Model = new AppModel();
-        public readonly ILog Log;
-
-        private readonly AudioDevicesListService _audioDevicesListService = new AudioDevicesListService();
-        private readonly AudioRecorderService _audioRecorderService = new AudioRecorderService();
-        
+        public readonly ServiceContainer Services;
+        public readonly AudioRecorderToolModel Model;
         public AudioRecorderToolController(ILog log)
         {
-            Log = log;
+            Model = new AudioRecorderToolModel();
+            Services = new ServiceContainer(log);
         }
 
         public void Initialize()
         {
-            Model.InputDevices = _audioDevicesListService.GetInputDevices();
-            Model.OutputDevices = _audioDevicesListService.GetOutputDevices();
-            Model.DefaultOutputDevice = _audioDevicesListService.GetDefaultOutputDevice();
-            Model.DefaultInputDevice = _audioDevicesListService.GetDefaultInputDevice();
-            
-            Model.OutputFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "Audio Conference Recordings");
-            if (!Directory.Exists(Model.OutputFolder))
-                Directory.CreateDirectory(Model.OutputFolder);
+            new InitializeCommand().Execute(this);
         }
 
         public string Start(string inputDeviceFrinedlyName, string outputDeviceFriendlyName, string folder)
         {
-            return _audioRecorderService.StartRecording(inputDeviceFrinedlyName, outputDeviceFriendlyName, folder);
+            return Services.AudioRecorderService.StartRecording(inputDeviceFrinedlyName, outputDeviceFriendlyName, folder);
         }
 
         public bool IsAudioRecording
         {
             get
             {
-                return _audioRecorderService.IsAudioRecording;
+                return Services.AudioRecorderService.IsAudioRecording;
             }
         }
 
         public void Stop()
         {
-            _audioRecorderService.StopRecording();
+            Services.AudioRecorderService.StopRecording();
         }
 
         public void Dispose()

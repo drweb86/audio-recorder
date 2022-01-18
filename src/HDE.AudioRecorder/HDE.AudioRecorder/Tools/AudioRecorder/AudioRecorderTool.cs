@@ -48,18 +48,5 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder
                 base.Dispose();
             }
         }
-
-        protected override void OnMessageProcess(string subject, params object[] body)
-        {
-            switch (subject)
-            {
-                case "Activate":
-                    if (TabControl.SelectedTab != _tabPage)
-                    {
-                        Activate();
-                    }
-                    break;
-            }
-        }
     }
 }

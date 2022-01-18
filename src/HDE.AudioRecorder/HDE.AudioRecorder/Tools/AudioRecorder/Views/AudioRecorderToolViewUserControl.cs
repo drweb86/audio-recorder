@@ -1,14 +1,5 @@
 ﻿using HDE.AudioRecorder.Tools.AudioRecorder.Controller;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Views
 {
@@ -27,16 +18,16 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Views
             _audioInputDeviceComboBox.BeginUpdate();
             _audioInputDeviceComboBox.Items.Clear();
             _audioInputDeviceComboBox.Items.AddRange(_controller.Model.InputDevices.ToArray());
-            _audioInputDeviceComboBox.SelectedItem = _controller.Model.DefaultInputDevice;
+            _audioInputDeviceComboBox.SelectedItem = _controller.Model.Settings.AudioInputDevice;
             _audioInputDeviceComboBox.EndUpdate();
 
             _audioOutputDeviceComboBox.BeginUpdate();
             _audioOutputDeviceComboBox.Items.Clear();
             _audioOutputDeviceComboBox.Items.AddRange(_controller.Model.OutputDevices.ToArray());
-            _audioOutputDeviceComboBox.SelectedItem = _controller.Model.DefaultOutputDevice;
+            _audioOutputDeviceComboBox.SelectedItem = _controller.Model.Settings.AudioOutputDevice;
             _audioOutputDeviceComboBox.EndUpdate();
 
-            _outputFolderTextBox.Text = _controller.Model.OutputFolder;
+            _outputFolderTextBox.Text = _controller.Model.Settings.SaveRecordingToFolder;
         }
 
         internal void TearDown()

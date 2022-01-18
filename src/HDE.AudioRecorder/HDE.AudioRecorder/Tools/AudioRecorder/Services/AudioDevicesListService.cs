@@ -1,7 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Diagnostics;
 
-namespace HDE.AudioRecorder.Services
+namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 {
     internal class AudioDevicesListService
     {

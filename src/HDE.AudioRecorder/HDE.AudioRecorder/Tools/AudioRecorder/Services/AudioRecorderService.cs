@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HDE.AudioRecorder.Services
+namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 {
     internal class AudioRecorderService
     {
