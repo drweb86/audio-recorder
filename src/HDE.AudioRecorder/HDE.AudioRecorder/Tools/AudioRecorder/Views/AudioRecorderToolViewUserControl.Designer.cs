@@ -40,6 +40,7 @@
             this._audioOutputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this._audioInputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this._outputFolderTextBox = new System.Windows.Forms.TextBox();
+            this._updateRecordingToFolderButton = new System.Windows.Forms.Button();
             this._mainTabControl.SuspendLayout();
             this._recordingTabPage.SuspendLayout();
             this._settingsTabPage.SuspendLayout();
@@ -79,7 +80,7 @@
             this._linkFileLinkLabel.TabStop = true;
             this._linkFileLinkLabel.Text = "linkLabel1";
             this._linkFileLinkLabel.Visible = false;
-            this._linkFileLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._linkFileLinkLabel_LinkClicked);
+            this._linkFileLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnOpenFileLocation);
             // 
             // _startRecordingButton
             // 
@@ -97,7 +98,7 @@
             this._settingsTabPage.Location = new System.Drawing.Point(4, 24);
             this._settingsTabPage.Name = "_settingsTabPage";
             this._settingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._settingsTabPage.Size = new System.Drawing.Size(561, 287);
+            this._settingsTabPage.Size = new System.Drawing.Size(863, 389);
             this._settingsTabPage.TabIndex = 1;
             this._settingsTabPage.Text = "Settings";
             this._settingsTabPage.UseVisualStyleBackColor = true;
@@ -113,16 +114,19 @@
             this._mainSettingsTableLayoutPanel.Controls.Add(this._audioOutputDeviceComboBox, 1, 1);
             this._mainSettingsTableLayoutPanel.Controls.Add(this._audioInputDeviceComboBox, 1, 0);
             this._mainSettingsTableLayoutPanel.Controls.Add(this._outputFolderTextBox, 1, 2);
+            this._mainSettingsTableLayoutPanel.Controls.Add(this._updateRecordingToFolderButton, 1, 3);
             this._mainSettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mainSettingsTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this._mainSettingsTableLayoutPanel.Name = "_mainSettingsTableLayoutPanel";
-            this._mainSettingsTableLayoutPanel.RowCount = 4;
+            this._mainSettingsTableLayoutPanel.RowCount = 5;
+            this._mainSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._mainSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._mainSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._mainSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._mainSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._mainSettingsTableLayoutPanel.Size = new System.Drawing.Size(555, 281);
+            this._mainSettingsTableLayoutPanel.Size = new System.Drawing.Size(857, 383);
             this._mainSettingsTableLayoutPanel.TabIndex = 0;
+            this._mainSettingsTableLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this._mainSettingsTableLayoutPanel_Paint);
             // 
             // _inputDeviceLabel
             // 
@@ -130,7 +134,7 @@
             this._inputDeviceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._inputDeviceLabel.Location = new System.Drawing.Point(3, 0);
             this._inputDeviceLabel.Name = "_inputDeviceLabel";
-            this._inputDeviceLabel.Size = new System.Drawing.Size(123, 30);
+            this._inputDeviceLabel.Size = new System.Drawing.Size(193, 29);
             this._inputDeviceLabel.TabIndex = 0;
             this._inputDeviceLabel.Text = "Choose audio input device:";
             this._inputDeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -139,9 +143,9 @@
             // 
             this._chooseOutputDeviceLabel.AutoSize = true;
             this._chooseOutputDeviceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._chooseOutputDeviceLabel.Location = new System.Drawing.Point(3, 30);
+            this._chooseOutputDeviceLabel.Location = new System.Drawing.Point(3, 29);
             this._chooseOutputDeviceLabel.Name = "_chooseOutputDeviceLabel";
-            this._chooseOutputDeviceLabel.Size = new System.Drawing.Size(123, 30);
+            this._chooseOutputDeviceLabel.Size = new System.Drawing.Size(193, 29);
             this._chooseOutputDeviceLabel.TabIndex = 1;
             this._chooseOutputDeviceLabel.Text = "Choose audio output device:";
             this._chooseOutputDeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -150,9 +154,9 @@
             // 
             this._outputFoldersLabel.AutoSize = true;
             this._outputFoldersLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._outputFoldersLabel.Location = new System.Drawing.Point(3, 60);
+            this._outputFoldersLabel.Location = new System.Drawing.Point(3, 58);
             this._outputFoldersLabel.Name = "_outputFoldersLabel";
-            this._outputFoldersLabel.Size = new System.Drawing.Size(123, 30);
+            this._outputFoldersLabel.Size = new System.Drawing.Size(193, 29);
             this._outputFoldersLabel.TabIndex = 2;
             this._outputFoldersLabel.Text = "Save recordings to folder:";
             this._outputFoldersLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -162,28 +166,43 @@
             this._audioOutputDeviceComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this._audioOutputDeviceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._audioOutputDeviceComboBox.FormattingEnabled = true;
-            this._audioOutputDeviceComboBox.Location = new System.Drawing.Point(132, 33);
+            this._audioOutputDeviceComboBox.Location = new System.Drawing.Point(202, 32);
             this._audioOutputDeviceComboBox.Name = "_audioOutputDeviceComboBox";
-            this._audioOutputDeviceComboBox.Size = new System.Drawing.Size(420, 23);
+            this._audioOutputDeviceComboBox.Size = new System.Drawing.Size(652, 23);
             this._audioOutputDeviceComboBox.TabIndex = 4;
+            this._audioOutputDeviceComboBox.SelectedValueChanged += new System.EventHandler(this.OnAudioOutputDeviceChanged);
             // 
             // _audioInputDeviceComboBox
             // 
             this._audioInputDeviceComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this._audioInputDeviceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._audioInputDeviceComboBox.FormattingEnabled = true;
-            this._audioInputDeviceComboBox.Location = new System.Drawing.Point(132, 3);
+            this._audioInputDeviceComboBox.Location = new System.Drawing.Point(202, 3);
             this._audioInputDeviceComboBox.Name = "_audioInputDeviceComboBox";
-            this._audioInputDeviceComboBox.Size = new System.Drawing.Size(420, 23);
+            this._audioInputDeviceComboBox.Size = new System.Drawing.Size(652, 23);
             this._audioInputDeviceComboBox.TabIndex = 5;
+            this._audioInputDeviceComboBox.SelectedValueChanged += new System.EventHandler(this.OnAudioInputDeviceChanged);
             // 
             // _outputFolderTextBox
             // 
             this._outputFolderTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._outputFolderTextBox.Location = new System.Drawing.Point(132, 63);
+            this._outputFolderTextBox.Location = new System.Drawing.Point(202, 61);
             this._outputFolderTextBox.Name = "_outputFolderTextBox";
-            this._outputFolderTextBox.Size = new System.Drawing.Size(420, 23);
+            this._outputFolderTextBox.ReadOnly = true;
+            this._outputFolderTextBox.Size = new System.Drawing.Size(652, 23);
             this._outputFolderTextBox.TabIndex = 3;
+            // 
+            // _updateRecordingToFolderButton
+            // 
+            this._updateRecordingToFolderButton.AutoSize = true;
+            this._updateRecordingToFolderButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this._updateRecordingToFolderButton.Location = new System.Drawing.Point(745, 90);
+            this._updateRecordingToFolderButton.Name = "_updateRecordingToFolderButton";
+            this._updateRecordingToFolderButton.Size = new System.Drawing.Size(109, 25);
+            this._updateRecordingToFolderButton.TabIndex = 6;
+            this._updateRecordingToFolderButton.Text = "Change folder";
+            this._updateRecordingToFolderButton.UseVisualStyleBackColor = true;
+            this._updateRecordingToFolderButton.Click += new System.EventHandler(this.OnUpdateRecordingToFolder);
             // 
             // AudioRecorderToolViewUserControl
             // 
@@ -216,5 +235,6 @@
         private ComboBox _audioOutputDeviceComboBox;
         private ComboBox _audioInputDeviceComboBox;
         private TextBox _outputFolderTextBox;
+        private Button _updateRecordingToFolderButton;
     }
 }

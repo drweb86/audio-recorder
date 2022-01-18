@@ -1,5 +1,5 @@
 ﻿using HDE.AudioRecorder.Tools.AudioRecorder.Controller;
-using System.Diagnostics;
+using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Views
 {
@@ -52,14 +52,46 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Views
             }
         }
 
-        private void _linkFileLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void OnOpenFileLocation(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
+            _controller.OpenOutputFolder();
+        }
+
+        private void OnAudioInputDeviceChanged(object sender, EventArgs e)
+        {
+            _controller.UpdateSettings(new AudioRecorderSettings
             {
-                FileName = _outputFolderTextBox.Text,
-                UseShellExecute = true,
-                Verb = "open"
+                AudioInputDevice = _audioInputDeviceComboBox.Text,
             });
+        }
+
+        private void OnAudioOutputDeviceChanged(object sender, EventArgs e)
+        {
+            _controller.UpdateSettings(new AudioRecorderSettings
+            {
+                AudioOutputDevice = _audioOutputDeviceComboBox.Text,
+            });
+        }
+
+        private void _mainSettingsTableLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void OnUpdateRecordingToFolder(object sender, EventArgs e)
+        {
+            using (var folderBrowserDialog = new FolderBrowserDialog())
+            {
+                folderBrowserDialog.SelectedPath = _outputFolderTextBox.Text;
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
+                {
+                    _controller.UpdateSettings(new AudioRecorderSettings
+                    {
+                        SaveRecordingToFolder = folderBrowserDialog.SelectedPath,
+                    });
+                    _outputFolderTextBox.Text = folderBrowserDialog.SelectedPath;
+                }
+            }
         }
     }
 }

@@ -40,7 +40,20 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 
         public void Dispose()
         {
+            if (IsAudioRecording)
+            {
+                Stop();
+            }
+        }
 
+        internal void OpenOutputFolder()
+        {
+            new OpenOutputFolderCommand().Execute(this);
+        }
+
+        public void UpdateSettings(AudioRecorderSettings update)
+        {
+            new UpdateSettingsCommand().Execute(this, update);
         }
     }
 }
