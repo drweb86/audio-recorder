@@ -6,40 +6,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Width="Auto" Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
 
-    <Grid>
-        <Grid Width="Auto" Margin="15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Margin" Value="10 10 10 0"/>
-                </Style>
-                <Style TargetType="ComboBox">
-                    <Setter Property="Margin" Value="10 5 10 0"/>
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="10 5 10 0"/>
-                </Style>
-            </Grid.Resources>
-            <TextBlock Grid.Row="0">Choose audio input device:</TextBlock>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"></ComboBox>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
 
-            <TextBlock Grid.Row="2">Choose audio output device:</TextBlock>
-            <ComboBox Grid.Row="3" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding AudioOutputDevice, Mode=TwoWay}"></ComboBox>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="10 10 10 0"/>
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="10 5 10 0"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="10 5 10 0"/>
+            </Style>
+        </Grid.Resources>
 
-            <TextBlock Grid.Row="4">Save recordings to folder:</TextBlock>
-            <TextBlock Grid.Row="5" Text="{Binding SaveRecordingToFolder}" />
-            <Button Grid.Row="6" Click="OnSaveRecordingToFolder" >Change Folder</Button>
-        </Grid>
-        
+        <TextBlock Grid.Row="0">Choose audio input device:</TextBlock>
+        <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"></ComboBox>
+
+        <TextBlock Grid.Row="2">Choose audio output device:</TextBlock>
+        <ComboBox Grid.Row="3" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding AudioOutputDevice, Mode=TwoWay}"></ComboBox>
+
+        <TextBlock Grid.Row="4">Save recordings to folder:</TextBlock>
+        <TextBlock Grid.Row="5" Text="{Binding SaveRecordingToFolder}" />
+        <Button Grid.Row="6" Click="OnSaveRecordingToFolder" >Change Folder</Button>
+
     </Grid>
 </Page>
