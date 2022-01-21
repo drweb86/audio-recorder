@@ -1,4 +1,6 @@
-﻿namespace HDE.AudioRecorder.Tools.AudioRecorder.Model
+﻿using System.Collections.Generic;
+
+namespace HDE.AudioRecorder.Tools.AudioRecorder.Model
 {
     class AudioRecorderToolModel
     {

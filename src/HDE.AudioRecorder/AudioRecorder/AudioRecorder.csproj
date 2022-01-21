@@ -124,6 +124,14 @@
     <Compile Include="Commands\UpdateSettingsCommand.cs" />
     <Compile Include="Controller\AudioRecorderToolController.cs" />
     <Compile Include="Controller\ServiceContainer.cs" />
+    <Compile Include="HDE.Platform\HtmlLog.cs" />
+    <Compile Include="HDE.Platform\HtmlLogFormatter.cs" />
+    <Compile Include="HDE.Platform\ILog.cs" />
+    <Compile Include="HDE.Platform\LogBase.cs" />
+    <Compile Include="HDE.Platform\LogException.cs" />
+    <Compile Include="HDE.Platform\LoggingEvent.cs" />
+    <Compile Include="HDE.Platform\SettingsService.cs" />
+    <Compile Include="HDE.Platform\SyncFile.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -146,9 +154,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bins\HDE.Platform\HDE.Platform.dll" />
-    <Content Include="Bins\HDE.Platform\HDE.Platform.pdb" />
-    <Content Include="Bins\HDE.Platform\ref\HDE.Platform.dll" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -180,15 +185,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.3</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Bins\HDE.Platform\HDE.Platform.deps.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="HDE.Platform, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bins\HDE.Platform\HDE.Platform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

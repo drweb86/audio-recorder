@@ -1,4 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Services

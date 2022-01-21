@@ -26,6 +26,7 @@ namespace HDE.AudioRecorder
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             Controller = new AudioRecorderToolController(CreateOpenLog());
+            this.Resuming += Application_Resuming;
         }
 
         private ILog CreateOpenLog()
@@ -102,21 +103,16 @@ namespace HDE.AudioRecorder
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            if (Controller.IsAudioRecording)
+            {
+                Controller.Stop();
+            }
             deferral.Complete();
         }
 
         private void Application_Resuming(object sender, object e)
         {
             Controller.Initialize();
-        }
-
-        private void Application_Suspending(object sender, SuspendingEventArgs e)
-        {
-            if (Controller.IsAudioRecording)
-            {
-                Controller.Stop();
-            }
         }
     }
 }
