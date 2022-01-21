@@ -1,4 +1,7 @@
 ﻿using HDE.AudioRecorder.Tools.AudioRecorder.Controller;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
 {
@@ -24,7 +27,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
 
             if (string.IsNullOrWhiteSpace(controller.Model.Settings.SaveRecordingToFolder))
             {
-                controller.Model.Settings.SaveRecordingToFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "Audio Conference Recordings");
+                controller.Model.Settings.SaveRecordingToFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "Audio Conference Recordings");
             }
 
             if (!Directory.Exists(controller.Model.Settings.SaveRecordingToFolder))

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AudioRecorderV4;
+using Microsoft.UI.Xaml;
+using System.Collections.Generic;
 
 namespace HDE.AudioRecorder.Views
 {
@@ -20,7 +22,7 @@ namespace HDE.AudioRecorder.Views
             this.InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             InputDevices = App.Controller.Model.InputDevices;
             AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
