@@ -8,7 +8,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid Width="Auto" Margin="5">
+        <Grid Width="Auto" Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -19,6 +19,17 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="10 10 10 0"/>
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="Margin" Value="10 5 10 0"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="10 5 10 0"/>
+                </Style>
+            </Grid.Resources>
             <TextBlock Grid.Row="0">Choose audio input device:</TextBlock>
             <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"></ComboBox>
 
