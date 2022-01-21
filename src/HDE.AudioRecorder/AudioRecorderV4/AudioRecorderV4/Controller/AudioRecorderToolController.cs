@@ -21,9 +21,9 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
             new InitializeCommand().Execute(this);
         }
 
-        public string Start(string inputDeviceFrinedlyName, string outputDeviceFriendlyName, string folder)
+        public void Start()
         {
-            return Services.AudioRecorderService.StartRecording(inputDeviceFrinedlyName, outputDeviceFriendlyName, folder);
+            Services.AudioRecorderService.StartRecording(Model.Settings.AudioInputDevice, Model.Settings.AudioOutputDevice, Model.Settings.SaveRecordingToFolder);
         }
 
         public bool IsAudioRecording

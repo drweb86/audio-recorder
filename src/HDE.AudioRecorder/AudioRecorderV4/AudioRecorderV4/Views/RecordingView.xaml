@@ -9,8 +9,23 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <TextBlock Text="Recording" FontFamily="Arial" FontSize="24" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Width="Auto" Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style TargetType="HyperlinkButton">
+                <Setter Property="Margin" Value="10 5 10 0"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="10 5 10 0"/>
+            </Style>
+        </Grid.Resources>
+
+        <Button Grid.Row="0" Click="OnRecordClick" Content="{Binding ButtonTitle}" />
+        <HyperlinkButton Grid.Row="1" Click="OnOpenRecordingsFolder">see recordings</HyperlinkButton>
     </Grid>
 </Page>

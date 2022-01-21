@@ -1,32 +1,59 @@
-﻿namespace HDE.AudioRecorder.Views
+﻿using AudioRecorderV4;
+using Microsoft.UI.Xaml;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace HDE.AudioRecorder.Views
 {
-    public sealed partial class RecordingView
+    public sealed partial class RecordingView : INotifyPropertyChanged
     {
-        public RecordingView()
+        public string buttonTitle;
+        public string ButtonTitle
         {
-            this.InitializeComponent();
-        }
-        /*
-        private void _startRecordingButton_Click(object sender, EventArgs e)
-        {
-            if (_controller.IsAudioRecording)
+            get => buttonTitle;
+            set
             {
-                _controller.Stop();
-                _startRecordingButton.Text = "Start";
-                _linkFileLinkLabel.Visible = true;
-            }
-            else
-            {
-                var fileName = _controller.Start(_audioInputDeviceComboBox.Text, _audioOutputDeviceComboBox.Text, _outputFolderTextBox.Text);
-                _startRecordingButton.Text = "Stop";
-                _linkFileLinkLabel.Text = fileName;
-                _linkFileLinkLabel.Visible = false;
+                buttonTitle = value;
+                OnPropertyChanged("ButtonTitle");
             }
         }
 
-        private void OnOpenFileLocation(object sender, LinkLabelLinkClickedEventArgs e)
+        public RecordingView()
         {
-            _controller.OpenOutputFolder();
-        }*/
+            this.InitializeComponent();
+            RefreshTitle();
+            this.DataContext = this;
+        }
+
+        private void OnOpenRecordingsFolder(object sender, RoutedEventArgs e)
+        {
+            App.Controller.OpenOutputFolder();
+        }
+
+        private void OnRecordClick(object sender, RoutedEventArgs e)
+        {
+            if (App.Controller.IsAudioRecording)
+            {
+                App.Controller.Stop();
+            }
+            else
+            {
+                App.Controller.Start();
+            }
+            RefreshTitle();
+        }
+
+        private void RefreshTitle()
+        {
+            ButtonTitle = App.Controller.IsAudioRecording ? "Stop" : "Start";
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
