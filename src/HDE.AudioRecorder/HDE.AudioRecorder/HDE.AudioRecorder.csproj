@@ -25,10 +25,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="HDE.AudioRecorder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

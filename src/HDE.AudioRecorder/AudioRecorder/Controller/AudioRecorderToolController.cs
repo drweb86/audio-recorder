@@ -1,6 +1,7 @@
 ﻿using HDE.AudioRecorder.Tools.AudioRecorder.Commands;
 using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 using HDE.Platform.Logging;
+using System;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 {

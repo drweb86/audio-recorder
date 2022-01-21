@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HDE.AudioRecorder.Tools.AudioRecorder.Controller;
+using HDE.Platform.Logging;
+using System;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace HDE.AudioRecorder
@@ -22,6 +15,8 @@ namespace HDE.AudioRecorder
     /// </summary>
     sealed partial class App : Application
     {
+        public static AudioRecorderToolController Controller;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +25,20 @@ namespace HDE.AudioRecorder
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            Controller = new AudioRecorderToolController(CreateOpenLog());
+        }
+
+        private ILog CreateOpenLog()
+        {
+            var log = new HtmlLog(Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "HDE",
+                "AudioRecorder",
+                "1.0"));
+
+            log.Open();
+
+            return log;
         }
 
         /// <summary>
@@ -95,6 +104,19 @@ namespace HDE.AudioRecorder
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void Application_Resuming(object sender, object e)
+        {
+            Controller.Initialize();
+        }
+
+        private void Application_Suspending(object sender, SuspendingEventArgs e)
+        {
+            if (Controller.IsAudioRecording)
+            {
+                Controller.Stop();
+            }
         }
     }
 }
