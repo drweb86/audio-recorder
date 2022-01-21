@@ -18,7 +18,7 @@
     <None Remove="Assets\StoreLogo.png" />
     <None Remove="Assets\Wide310x150Logo.scale-200.png" />
     <None Remove="Views\RecordingView.xaml" />
-    <None Remove="Views\SettingsView.xaml" />
+    <None Remove="Views\Settings.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +32,7 @@
     <Page Update="Views\RecordingView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\SettingsView.xaml">
+    <Page Update="Views\Settings.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

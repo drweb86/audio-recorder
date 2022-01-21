@@ -1,16 +1,14 @@
 ﻿<Page
-    x:Class="HDE.AudioRecorder.Views.SettingsView"
+    x:Class="HDE.AudioRecorder.Views.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HDE.AudioRecorder.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid Width="Auto">
+        <Grid Width="Auto" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -22,16 +20,14 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0">Choose audio input device:</TextBlock>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding }"></ComboBox>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"></ComboBox>
 
             <TextBlock Grid.Row="2">Choose audio output device:</TextBlock>
-            <ComboBox Grid.Row="3"></ComboBox>
+            <ComboBox Grid.Row="3" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding AudioOutputDevice, Mode=TwoWay}"></ComboBox>
 
             <TextBlock Grid.Row="4">Save recordings to folder:</TextBlock>
-            <TextBlock Grid.Row="5">FOLDER</TextBlock>
-            <Button Grid.Row="6">Change Folder</Button>
-
-
+            <TextBlock Grid.Row="5" Text="{Binding SaveRecordingToFolder}" />
+            <Button Grid.Row="6" Click="OnSaveRecordingToFolder" >Change Folder</Button>
         </Grid>
         
     </Grid>
