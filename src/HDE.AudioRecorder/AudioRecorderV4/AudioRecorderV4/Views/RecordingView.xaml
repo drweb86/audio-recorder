@@ -22,6 +22,7 @@
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="10 5 10 0"/>
+                <Setter Property="CornerRadius" Value="5"/>
             </Style>
         </Grid.Resources>
 

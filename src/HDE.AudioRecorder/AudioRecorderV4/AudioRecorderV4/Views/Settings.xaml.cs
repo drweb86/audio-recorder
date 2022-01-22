@@ -92,6 +92,7 @@ namespace HDE.AudioRecorder.Views
         {
             this.InitializeComponent();
 
+            App.Controller.Initialize();
             InputDevices = App.Controller.Model.InputDevices;
             AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
 

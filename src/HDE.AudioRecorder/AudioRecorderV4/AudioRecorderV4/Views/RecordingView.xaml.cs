@@ -45,7 +45,7 @@ namespace HDE.AudioRecorder.Views
 
         private void RefreshTitle()
         {
-            ButtonTitle = App.Controller.IsAudioRecording ? "Stop" : "Start";
+            ButtonTitle = App.Controller.IsAudioRecording ? "Stop" : "Start Recording";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
