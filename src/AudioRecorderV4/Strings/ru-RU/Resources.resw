@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeFolder.Content" xml:space="preserve">
-    <value>Change Folder</value>
+    <value>Изменить каталог</value>
   </data>
   <data name="ChooseAudioInputDevice.Text" xml:space="preserve">
-    <value>Choose audio input device (microphone):</value>
+    <value>Выберите устройство аудио-входа (используемый микрофон):</value>
   </data>
   <data name="ChooseAudioOutputDevice.Text" xml:space="preserve">
-    <value>Choose audio output device (headphones):</value>
+    <value>Выберите устройство аудио-выхода (наушники):</value>
   </data>
   <data name="ConferenceAudioRecorder" xml:space="preserve">
-    <value>Conference Audio Recorder</value>
+    <value>Запись аудио-конференций</value>
   </data>
   <data name="Recording.Content" xml:space="preserve">
-    <value>Recording</value>
+    <value>Запись</value>
   </data>
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
-    <value>Save recordings to folder:</value>
+    <value>Сохранять записи в папку:</value>
   </data>
   <data name="seeRecordings.Content" xml:space="preserve">
-    <value>see recordings</value>
+    <value>посмотреть записи</value>
   </data>
   <data name="StartRecording" xml:space="preserve">
-    <value>Start Recording</value>
+    <value>Начать запись</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Stop</value>
+    <value>Стоп</value>
   </data>
 </root>

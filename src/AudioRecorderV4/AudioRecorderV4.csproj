@@ -18,6 +18,7 @@
     <None Remove="Assets\StoreLogo.png" />
     <None Remove="Assets\Wide310x150Logo.scale-200.png" />
     <None Remove="Resources.resw" />
+    <None Remove="Strings\ru-RU\Resources.resw" />
     <None Remove="Views\RecordingView.xaml" />
     <None Remove="Views\Settings.xaml" />
   </ItemGroup>

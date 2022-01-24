@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.Resources;
+using Windows.Globalization;
 
 namespace HDE.AudioRecorder.Views
 {
@@ -24,8 +25,6 @@ namespace HDE.AudioRecorder.Views
         public RecordingView()
         {
             this.InitializeComponent();
-            _resourceLoader = new ResourceLoader();
-            RefreshTitle();
             this.DataContext = this;
         }
 
@@ -60,6 +59,12 @@ namespace HDE.AudioRecorder.Views
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+            RefreshTitle();
         }
     }
 }
