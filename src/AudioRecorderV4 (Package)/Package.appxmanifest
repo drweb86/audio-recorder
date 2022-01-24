@@ -7,13 +7,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="61fe5c87-457b-4b54-aea4-fc7c7c730faf"
-    Publisher="CN=Administrator"
-    Version="1.0.0.0" />
+    Name="26873SiarheiKuchuk.ConferenceAudioRecorder"
+    Publisher="CN=48445635-F577-4A99-ABC2-E3554955850E"
+    Version="1.0.1.0" />
 
   <Properties>
-    <DisplayName>AudioRecorderV4 (Package)</DisplayName>
-    <PublisherDisplayName>Administrator</PublisherDisplayName>
+    <DisplayName>Conference Audio Recorder</DisplayName>
+    <PublisherDisplayName>Siarhei Kuchuk</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="AudioRecorderV4 (Package)"
-        Description="AudioRecorderV4 (Package)"
+        DisplayName="Conference Audio Recorder"
+        Description="Audio recorder is an application for recording both Audio input and output for recording conference calls in Teams, Viber and other applications."
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">

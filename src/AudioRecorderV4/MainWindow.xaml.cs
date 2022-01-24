@@ -12,6 +12,8 @@ namespace AudioRecorderV4
         public MainWindow()
         {
             this.InitializeComponent();
+
+            Title = "Conference Audio Recorder";
             NavigateToView("RecordingView");
         }
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "AudioRecorderV4 (Package)", "AudioRecorderV4\AudioRecorderV4 (Package)\AudioRecorderV4 (Package).wapproj", "{983B33C7-B1A1-4CF3-B1ED-B868D79C1646}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "AudioRecorderV4 (Package)", "AudioRecorderV4 (Package)\AudioRecorderV4 (Package).wapproj", "{983B33C7-B1A1-4CF3-B1ED-B868D79C1646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioRecorderV4", "AudioRecorderV4\AudioRecorderV4\AudioRecorderV4.csproj", "{175A00D7-6BEF-4013-8548-3686049272FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioRecorderV4", "AudioRecorderV4\AudioRecorderV4.csproj", "{175A00D7-6BEF-4013-8548-3686049272FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
