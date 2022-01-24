@@ -2,6 +2,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.ApplicationModel.Resources;
 using System;
 using System.Reflection;
 
@@ -9,11 +10,12 @@ namespace AudioRecorderV4
 {
     public sealed partial class MainWindow : Window
     {
+        private readonly ResourceLoader _resourceLoader;
         public MainWindow()
         {
             this.InitializeComponent();
-
-            Title = "Conference Audio Recorder";
+            _resourceLoader = new ResourceLoader();
+            Title = _resourceLoader.GetString("ConferenceAudioRecorder");
             NavigateToView("RecordingView");
         }
 

@@ -32,15 +32,14 @@
             </Style>
         </Grid.Resources>
 
-        <TextBlock Grid.Row="0">Choose audio input device:</TextBlock>
+        <TextBlock Grid.Row="0" x:Uid="ChooseAudioInputDevice"></TextBlock>
         <ComboBox Grid.Row="1" ItemsSource="{Binding InputDevices}" SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"></ComboBox>
 
-        <TextBlock Grid.Row="2">Choose audio output device:</TextBlock>
+        <TextBlock Grid.Row="2" x:Uid="ChooseAudioOutputDevice"></TextBlock>
         <ComboBox Grid.Row="3" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding AudioOutputDevice, Mode=TwoWay}"></ComboBox>
 
-        <TextBlock Grid.Row="4">Save recordings to folder:</TextBlock>
+        <TextBlock Grid.Row="4" x:Uid="SaveRecordingsToFolder"></TextBlock>
         <TextBlock Grid.Row="5" Text="{Binding SaveRecordingToFolder}" />
-        <Button Grid.Row="6" Click="OnSaveRecordingToFolder" >Change Folder</Button>
-
+        <Button Grid.Row="6" Click="OnSaveRecordingToFolder" x:Uid="ChangeFolder"></Button>
     </Grid>
 </Page>

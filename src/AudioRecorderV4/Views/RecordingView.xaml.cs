@@ -2,11 +2,14 @@
 using Microsoft.UI.Xaml;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.ApplicationModel.Resources;
 
 namespace HDE.AudioRecorder.Views
 {
     public sealed partial class RecordingView : INotifyPropertyChanged
     {
+        private ResourceLoader _resourceLoader;
+
         public string buttonTitle;
         public string ButtonTitle
         {
@@ -21,6 +24,7 @@ namespace HDE.AudioRecorder.Views
         public RecordingView()
         {
             this.InitializeComponent();
+            _resourceLoader = new ResourceLoader();
             RefreshTitle();
             this.DataContext = this;
         }
@@ -45,7 +49,9 @@ namespace HDE.AudioRecorder.Views
 
         private void RefreshTitle()
         {
-            ButtonTitle = App.Controller.IsAudioRecording ? "Stop" : "Start Recording";
+            ButtonTitle = App.Controller.IsAudioRecording ? 
+                _resourceLoader.GetString("Stop") :
+                _resourceLoader.GetString("StartRecording");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
