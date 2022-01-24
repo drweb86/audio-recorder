@@ -80,6 +80,11 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
+    <Content Include="Screenshots\1080x1080.png" />
+    <Content Include="Screenshots\300x300.png" />
+    <Content Include="Screenshots\720x1080.png" />
+    <Content Include="Screenshots\Screenshot1.png" />
+    <Content Include="Screenshots\Screenshot2.png" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
