@@ -8,6 +8,7 @@
     <Platforms>x86;x64;arm64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
+    <PackageIcon>1080x1080.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\LockScreenLogo.scale-200.png" />
@@ -28,6 +29,13 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
     <PackageReference Include="NAudio" Version="2.0.1" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\AudioRecorderV4 (Package)\Screenshots\1080x1080.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

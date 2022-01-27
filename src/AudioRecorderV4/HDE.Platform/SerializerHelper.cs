@@ -1,19 +1,10 @@
 ﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 
 namespace HDE.Platform.Serialization
 {
     public static class SerializerHelper
     {
-        public static TData DeserializeBinary<TData>(byte[] message)
-        {
-            using (var stream = new MemoryStream(message))
-            {
-                return (TData)new BinaryFormatter().Deserialize(stream);
-            }
-        }
-
         public static TData Load<TData>(string file)
             where TData: new()
         {
