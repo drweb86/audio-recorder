@@ -3,8 +3,8 @@
   <PropertyGroup>
     <AppxShowAllApps>False</AppxShowAllApps>
     <UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
-    <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <AppxBuildConfigurationSelection>x64|arm64</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
     <Source>C:\Users\Administrator\Documents\audio-recorder\src\AudioRecorderV4 %28Package%29\Screenshots\1080x1080.png</Source>
     <SmallTileSource>C:\Users\Administrator\Documents\audio-recorder\src\AudioRecorderV4 %28Package%29\Screenshots\1080x1080.png</SmallTileSource>
     <MediumTileSource>C:\Users\Administrator\Documents\audio-recorder\src\AudioRecorderV4 %28Package%29\Screenshots\1080x1080.png</MediumTileSource>
