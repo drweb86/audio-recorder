@@ -21,12 +21,17 @@
                 <Setter Property="Margin" Value="10 5 10 0"/>
             </Style>
             <Style TargetType="Button">
-                <Setter Property="Margin" Value="10 5 10 0"/>
+                <Setter Property="Margin" Value="20 5 10 0"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
         </Grid.Resources>
 
-        <Button Grid.Row="0" Click="OnRecordClick" Content="{Binding ButtonTitle}" />
+        <Button Grid.Row="0" Click="OnRecordClick" Style="{StaticResource AccentButtonStyle}" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" Margin="5" />
+                <TextBlock Text="{Binding ButtonTitle}" Margin="5"></TextBlock>
+            </StackPanel>
+        </Button>
         <HyperlinkButton Grid.Row="1" Click="OnOpenRecordingsFolder" x:Uid="seeRecordings"></HyperlinkButton>
     </Grid>
 </Page>
