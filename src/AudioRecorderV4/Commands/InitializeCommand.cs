@@ -28,7 +28,10 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
 
             if (string.IsNullOrWhiteSpace(controller.Model.Settings.SaveRecordingToFolder))
             {
-                controller.Model.Settings.SaveRecordingToFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "Audio Conference Recordings");
+                var resource = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+                var localizedFolder = resource.GetString("ConferenceRecordingsFolder");
+
+                controller.Model.Settings.SaveRecordingToFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), localizedFolder);
             }
 
             if (!Directory.Exists(controller.Model.Settings.SaveRecordingToFolder))

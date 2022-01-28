@@ -132,6 +132,9 @@
   <data name="ConferenceAudioRecorder" xml:space="preserve">
     <value>Conference Audio Recorder</value>
   </data>
+  <data name="ConferenceRecordingsFolder" xml:space="preserve">
+    <value>Conference Recordings</value>
+  </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Recording</value>
   </data>
