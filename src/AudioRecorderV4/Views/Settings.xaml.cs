@@ -111,6 +111,11 @@ namespace HDE.AudioRecorder.Views
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        private void OnOpenRecordingsFolder(object sender, RoutedEventArgs e)
+        {
+            App.Controller.OpenOutputFolder();
+        }
 
         private void OnSaveRecordingToFolder(object sender, RoutedEventArgs e)
         {
