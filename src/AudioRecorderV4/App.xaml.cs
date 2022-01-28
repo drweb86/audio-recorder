@@ -17,6 +17,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -40,11 +41,9 @@ namespace AudioRecorderV4
         }
         private ILog CreateOpenLog()
         {
-            var log = new HtmlLog(System.IO.Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "HDE",
-                "AudioRecorder",
-                "1.0"));
+            var log = new HtmlLog(System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path,
+                "1.0",
+                "Logs"));
 
             log.Open();
 

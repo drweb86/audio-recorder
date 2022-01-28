@@ -15,6 +15,7 @@ namespace HDE.AudioRecorder.Views
     {
         private List<string> inputDevices;
         private string audioInputDevice;
+        private string logsFolder;
         private List<string> outputDevices;
         private string audioOutputDevice;
         private string saveRecordingToFolder;
@@ -88,6 +89,16 @@ namespace HDE.AudioRecorder.Views
             }
         }
 
+        public string LogsFolder
+        {
+            get => logsFolder;
+            set
+            {
+                logsFolder = value;
+                OnPropertyChanged("LogsFolder");
+            }
+        }
+
         public Settings()
         {
             this.InitializeComponent();
@@ -100,6 +111,7 @@ namespace HDE.AudioRecorder.Views
             AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
 
             SaveRecordingToFolder = App.Controller.Model.Settings.SaveRecordingToFolder;
+            LogsFolder = App.Controller.Model.LogsFolder;
 
             this.DataContext = this;
         }
@@ -115,6 +127,11 @@ namespace HDE.AudioRecorder.Views
         private void OnOpenRecordingsFolder(object sender, RoutedEventArgs e)
         {
             App.Controller.OpenOutputFolder();
+        }
+
+        private void OnOpenLogsFolder(object sender, RoutedEventArgs e)
+        {
+            App.Controller.OpenLogsFolder();
         }
 
         private void OnSaveRecordingToFolder(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using HDE.Platform.Logging;
 using HDE.Platform.Services;
 using System;
 using System.IO;
+using Windows.Storage;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 {
@@ -11,11 +12,10 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         public AudioRecorderSettingsService(
             ILog log) : base(log, 
                 Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "HDE",
-                    "AudioRecorder",
-                    "1.0"), 
-                "AudioRecorder Settings v1.xml")
+                    System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path,
+                    "1.0",
+                    "Settings"), 
+                "Settings-v1.xml"))
         {
         }
     }

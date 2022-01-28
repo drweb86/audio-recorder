@@ -67,6 +67,10 @@ namespace HDE.Platform.Logging
         	{
         		throw new ArgumentNullException("logsFolder");
         	}
+            if (!Directory.Exists(logsFolder))
+            {
+                Directory.CreateDirectory(logsFolder);
+            }
         }
 
         public HtmlLog(string logsFolder)

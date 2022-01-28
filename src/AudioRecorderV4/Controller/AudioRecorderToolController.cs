@@ -52,6 +52,11 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
             new OpenOutputFolderCommand().Execute(this);
         }
 
+        internal void OpenLogsFolder()
+        {
+            new OpenLogsFolderCommand().Execute(this);
+        }
+
         public void UpdateSettings(AudioRecorderSettings update)
         {
             new UpdateSettingsCommand().Execute(this, update);

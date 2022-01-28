@@ -9,6 +9,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
     {
         public void Execute(AudioRecorderToolController controller)
         {
+            controller.Model.LogsFolder = Path.GetDirectoryName(controller.Services.Log.LogFile);
             controller.Model.InputDevices = controller.Services.AudioDevicesListService.GetInputDevices();
             controller.Model.OutputDevices = controller.Services.AudioDevicesListService.GetOutputDevices();
             var defaultOutputDevice = controller.Services.AudioDevicesListService.GetDefaultOutputDevice();
