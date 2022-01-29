@@ -106,17 +106,6 @@ namespace HDE.AudioRecorder.Views
             }
         }
 
-        public string buttonGlyph;
-        public string ButtonGlyph
-        {
-            get => buttonGlyph;
-            set
-            {
-                buttonGlyph = value;
-                OnPropertyChanged("ButtonGlyph");
-            }
-        }
-
         public RecordingView()
         {
             this.InitializeComponent();
@@ -164,10 +153,6 @@ namespace HDE.AudioRecorder.Views
             ButtonTitle = App.Controller.IsAudioRecording ? 
                 _resourceLoader.GetString("Stop") :
                 _resourceLoader.GetString("StartRecording");
-
-            ButtonGlyph = App.Controller.IsAudioRecording ?
-                "\uE73B" :
-                "\uE7C8";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

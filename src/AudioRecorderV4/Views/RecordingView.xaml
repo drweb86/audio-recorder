@@ -11,6 +11,7 @@
         <converters:TooltipConverter x:Key="TooltipConverter" />
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <converters:IsRecordingToBackgroundConverter x:Key="IsRecordingToBackgroundConverter" />
+        <converters:IsRecordingToGlyphConverter x:Key="IsRecordingToGlyphConverter" />
     </Page.Resources>
 
     <Grid Margin="15 40 15 15">
@@ -50,7 +51,7 @@
                 CornerRadius="7"
                 Foreground="White"
                 Background="{Binding IsAudioRecording, Converter={StaticResource IsRecordingToBackgroundConverter}}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" FontSize="45" />
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding IsAudioRecording, Converter={StaticResource IsRecordingToGlyphConverter}}" FontSize="45" />
         </Button>
 
         <ToggleSplitButton Grid.Row="0"
