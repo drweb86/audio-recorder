@@ -35,38 +35,64 @@
 
         <ToggleSplitButton Grid.Row="0"
                            Grid.Column="0" 
-                           VerticalAlignment="Top"
                            x:Name="AudioInputDeviceToggleSplitButton"
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="10 3 0 0">
-            <!--  Click="myListButton_Click" -->
+                           Margin="10 0 0 0">
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"
                 Glyph="&#xE720;"
             />
             <ToggleSplitButton.Flyout>
                 <Flyout Placement="Bottom">
-                    <!-- flyout content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            x:Uid="ChooseAudioInputDevice"
+                            Margin="0 2 0 10">
+                        </TextBlock>
+                        <ListBox
+                            Grid.Row="1"
+                            ItemsSource="{Binding InputDevices}"
+                            SelectedItem="{Binding AudioInputDevice, Mode=TwoWay}"
+                        />
+                    </Grid>
                 </Flyout>
             </ToggleSplitButton.Flyout>
         </ToggleSplitButton>
 
         <ToggleSplitButton Grid.Row="0"
                            Grid.Column="1" 
-                           VerticalAlignment="Top"
                            x:Name="AudioOutputDeviceToggleSplitButton"
                            Click="OnAudioOutputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="5 3 0 0">
-            <!--  Click="myListButton_Click" -->
+                           Margin="5 0 0 0">
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"
                 Glyph="&#xE7F6;"
             />
             <ToggleSplitButton.Flyout>
                 <Flyout Placement="Bottom">
-                    <!-- flyout content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            x:Uid="ChooseAudioOutputDevice"
+                            Margin="0 2 0 10">
+                        </TextBlock>
+                        <ListBox
+                            Grid.Row="1"
+                            ItemsSource="{Binding OutputDevices}"
+                            SelectedItem="{Binding AudioOutputDevice, Mode=TwoWay}"
+                        />
+                    </Grid>
                 </Flyout>
             </ToggleSplitButton.Flyout>
         </ToggleSplitButton>

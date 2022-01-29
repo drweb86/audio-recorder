@@ -11,52 +11,8 @@ namespace HDE.AudioRecorder.Views
     /// </summary>
     public sealed partial class Settings : INotifyPropertyChanged
     {
-        private List<string> inputDevices;
-        private string audioInputDevice;
         private string logsFolder;
-        private List<string> outputDevices;
-        private string audioOutputDevice;
         private string saveRecordingToFolder;
-
-        public List<string> InputDevices 
-        {
-            get => inputDevices; 
-            set 
-            {
-                inputDevices = value;
-                OnPropertyChanged("InputDevices");
-            } 
-        }
-        public string AudioInputDevice 
-        { 
-            get => audioInputDevice;
-            set
-            {
-                audioInputDevice = value;
-                OnPropertyChanged("AudioInputDevice");
-                App.Controller.UpdateAudioInputDevice(value);
-            }
-        }
-
-        public List<string> OutputDevices 
-        { 
-            get => outputDevices;
-            set
-            {
-                outputDevices = value;
-                OnPropertyChanged("OutputDevices");
-            }
-        }
-        public string AudioOutputDevice 
-        { 
-            get => audioOutputDevice;
-            set
-            {
-                audioOutputDevice = value;
-                OnPropertyChanged("AudioOutputDevice");
-                App.Controller.UpdateAudioOutputDevice(value);
-            }
-        }
 
         public string SaveRecordingToFolder 
         { 
@@ -82,13 +38,6 @@ namespace HDE.AudioRecorder.Views
         public Settings()
         {
             this.InitializeComponent();
-
-            App.Controller.Initialize();
-            InputDevices = App.Controller.Model.InputDevices;
-            AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
-
-            OutputDevices = App.Controller.Model.OutputDevices;
-            AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
 
             SaveRecordingToFolder = App.Controller.Model.Settings.SaveRecordingToFolder;
             LogsFolder = App.Controller.Model.LogsFolder;

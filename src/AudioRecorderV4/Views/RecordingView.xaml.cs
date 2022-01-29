@@ -1,12 +1,11 @@
 ﻿using AudioRecorderV4;
-using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.Resources;
 
@@ -45,7 +44,6 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioInputDevice");
                 App.Controller.UpdateAudioInputDevice(value);
                 AudioInputDeviceToggleSplitButton.IsChecked = value != null;
-                // AudioInputDeviceToggleSplitButton.Background = value != null ? new SolidColorBrush(Colors.Green) : null; Functionallity does not work.
             }
         }
 
@@ -79,12 +77,10 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioOutputDevice");
                 App.Controller.UpdateAudioOutputDevice(value);
                 AudioOutputDeviceToggleSplitButton.IsChecked = value != null;
-                // AudioOutputDeviceToggleSplitButton.Background = value != null ? new SolidColorBrush(Colors.Green) : null; Functionallity does not work.
             }
         }
 
         #endregion
-
 
         public string buttonTitle;
         public string ButtonTitle
@@ -113,6 +109,7 @@ namespace HDE.AudioRecorder.Views
             this.InitializeComponent();
             this.DataContext = this;
 
+            App.Controller.Initialize(); // Refreshing the sound devices list.
             InputDevices = App.Controller.Model.InputDevices;
             AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
 

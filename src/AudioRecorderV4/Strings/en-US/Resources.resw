@@ -142,7 +142,7 @@
     <value>Recording</value>
   </data>
   <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
-    <value>Recording from {0} device is enabled</value>
+    <value>Recording from "{0}" device is enabled</value>
   </data>
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
     <value>Save recordings to folder:</value>

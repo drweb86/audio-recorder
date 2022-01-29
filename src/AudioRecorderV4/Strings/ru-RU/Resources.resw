@@ -142,7 +142,7 @@
     <value>Запись</value>
   </data>
   <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
-    <value>Запись с устройства {0} включена</value>
+    <value>Запись с устройства "{0}" включена</value>
   </data>
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
     <value>Сохранять записи в папку:</value>
