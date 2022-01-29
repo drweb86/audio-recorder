@@ -13,6 +13,8 @@
         <converters:IsRecordingToGlyphConverter x:Key="IsRecordingToGlyphConverter" />
         <converters:IsRecordingToTooltipConverter x:Key="IsRecordingToTooltipConverter" />
         <converters:NotNullConverter x:Key="NotNullConverter" />
+        <converters:AudioInputDeviceToGlyphConverter x:Key="AudioInputDeviceToGlyphConverter" />
+        <converters:AudioOutputDeviceToGlyphConverter x:Key="AudioOutputDeviceToGlyphConverter" />
     </Page.Resources>
 
     <Grid Margin="15 40 15 15">
@@ -63,9 +65,8 @@
                            IsChecked="{Binding AudioInputDevice, Converter={StaticResource NotNullConverter}}"
                            IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon 
-                x:Name="AudioInputDeviceFontIcon"
+                Glyph="{Binding AudioInputDevice, Converter={StaticResource AudioInputDeviceToGlyphConverter}}"
                 FontFamily="Segoe MDL2 Assets"
-                Glyph="&#xE720;"
             />
             <ToggleSplitButton.Flyout>
                 <Flyout Placement="Bottom">
@@ -97,9 +98,8 @@
                            IsChecked="{Binding AudioOutputDevice, Converter={StaticResource NotNullConverter}}"
                            IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon
-                x:Name="AudioOutputDeviceFontIcon"
                 FontFamily="Segoe MDL2 Assets"
-                Glyph="&#xE7F6;"
+                Glyph="{Binding AudioOutputDevice, Converter={StaticResource AudioOutputDeviceToGlyphConverter}}"
             />
             <ToggleSplitButton.Flyout>
                 <Flyout Placement="Bottom">
