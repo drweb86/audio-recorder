@@ -44,6 +44,7 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioInputDevice");
                 App.Controller.UpdateAudioInputDevice(value);
                 AudioInputDeviceToggleSplitButton.IsChecked = value != null;
+                AudioInputDeviceFontIcon.Glyph = value != null ? "\uF8B1" : "\uE720";
             }
         }
 
@@ -77,6 +78,7 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioOutputDevice");
                 App.Controller.UpdateAudioOutputDevice(value);
                 AudioOutputDeviceToggleSplitButton.IsChecked = value != null;
+                AudioOutputDeviceFontIcon.Glyph = value != null ? "\uE767" : "\uE74F";
             }
         }
 

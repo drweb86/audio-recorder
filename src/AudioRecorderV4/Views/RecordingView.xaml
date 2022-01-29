@@ -39,7 +39,8 @@
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
                            Margin="10 0 0 0">
-            <FontIcon
+            <FontIcon 
+                x:Name="AudioInputDeviceFontIcon"
                 FontFamily="Segoe MDL2 Assets"
                 Glyph="&#xE720;"
             />
@@ -72,6 +73,7 @@
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
                            Margin="5 0 0 0">
             <FontIcon
+                x:Name="AudioOutputDeviceFontIcon"
                 FontFamily="Segoe MDL2 Assets"
                 Glyph="&#xE7F6;"
             />
