@@ -1,7 +1,5 @@
 ﻿using AudioRecorderV4;
-using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 using Microsoft.UI.Xaml;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -36,13 +34,7 @@ namespace HDE.AudioRecorder.Views
             {
                 audioInputDevice = value;
                 OnPropertyChanged("AudioInputDevice");
-                if (App.Controller.Model.Settings.AudioInputDevice != value)
-                {
-                    App.Controller.UpdateSettings(new AudioRecorderSettings
-                    {
-                        AudioInputDevice = value,
-                    });
-                }
+                App.Controller.UpdateAudioInputDevice(value);
             }
         }
 
@@ -62,13 +54,7 @@ namespace HDE.AudioRecorder.Views
             {
                 audioOutputDevice = value;
                 OnPropertyChanged("AudioOutputDevice");
-                if (App.Controller.Model.Settings.AudioOutputDevice != value)
-                {
-                    App.Controller.UpdateSettings(new AudioRecorderSettings
-                    {
-                        AudioOutputDevice = value,
-                    });
-                }
+                App.Controller.UpdateAudioOutputDevice(value);
             }
         }
 
@@ -79,13 +65,7 @@ namespace HDE.AudioRecorder.Views
             {
                 saveRecordingToFolder = value;
                 OnPropertyChanged("SaveRecordingToFolder");
-                if (App.Controller.Model.Settings.SaveRecordingToFolder != value)
-                {
-                    App.Controller.UpdateSettings(new AudioRecorderSettings
-                    {
-                        SaveRecordingToFolder = value,
-                    });
-                }
+                App.Controller.UpdateSaveRecordingToFolder(value);
             }
         }
 
@@ -141,10 +121,6 @@ namespace HDE.AudioRecorder.Views
                 folderBrowserDialog.SelectedPath = saveRecordingToFolder;
                 if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
                 {
-                    App.Controller.UpdateSettings(new AudioRecorderSettings
-                    {
-                        SaveRecordingToFolder = folderBrowserDialog.SelectedPath,
-                    });
                     SaveRecordingToFolder = folderBrowserDialog.SelectedPath;
                 }
             }

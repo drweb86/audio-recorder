@@ -135,8 +135,14 @@
   <data name="ConferenceRecordingsFolder" xml:space="preserve">
     <value>Conference Recordings</value>
   </data>
+  <data name="DeviceRecordingIsDisabled" xml:space="preserve">
+    <value>Device recording is disabled</value>
+  </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Recording</value>
+  </data>
+  <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
+    <value>Recording from {0} device is enabled</value>
   </data>
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
     <value>Save recordings to folder:</value>

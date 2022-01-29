@@ -15,13 +15,19 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
             var defaultOutputDevice = controller.Services.AudioDevicesListService.GetDefaultOutputDevice();
             var defaultInputDevice = controller.Services.AudioDevicesListService.GetDefaultInputDevice();
             controller.Model.Settings = controller.Services.AudioRecorderSettingsService.Load();
-
-            if (!controller.Model.InputDevices.Any(device => device == controller.Model.Settings.AudioInputDevice))
+            if (controller.Model.Settings.SaveRecordingToFolder == null) // Default settings
+            {
+                controller.Model.Settings.AudioInputDevice = defaultInputDevice;
+                controller.Model.Settings.AudioOutputDevice = defaultOutputDevice;
+            }
+            if (controller.Model.Settings.AudioInputDevice != null &&
+                !controller.Model.InputDevices.Any(device => device == controller.Model.Settings.AudioInputDevice))
             {
                 controller.Model.Settings.AudioInputDevice = defaultInputDevice;
             }
 
-            if (!controller.Model.OutputDevices.Any(device => device == controller.Model.Settings.AudioOutputDevice))
+            if (controller.Model.Settings.AudioOutputDevice != null &&
+                !controller.Model.OutputDevices.Any(device => device == controller.Model.Settings.AudioOutputDevice))
             {
                 controller.Model.Settings.AudioOutputDevice = defaultOutputDevice;
             }

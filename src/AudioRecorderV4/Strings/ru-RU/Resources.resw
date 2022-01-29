@@ -135,8 +135,14 @@
   <data name="ConferenceRecordingsFolder" xml:space="preserve">
     <value>Записи конференций</value>
   </data>
+  <data name="DeviceRecordingIsDisabled" xml:space="preserve">
+    <value>Запись с устройства отключена</value>
+  </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Запись</value>
+  </data>
+  <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
+    <value>Запись с устройства {0} включена</value>
   </data>
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
     <value>Сохранять записи в папку:</value>

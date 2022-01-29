@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\RecordingView.xaml">
       <SubType>Designer</SubType>
     </Page>

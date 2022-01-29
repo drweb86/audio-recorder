@@ -1,28 +1,34 @@
 ﻿using HDE.AudioRecorder.Tools.AudioRecorder.Controller;
-using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
 {
     internal class UpdateSettingsCommand
     {
-        public void Execute(AudioRecorderToolController controller, AudioRecorderSettings update)
+        public void UpdateAudioInputDevice(AudioRecorderToolController controller, string audioInputDevice)
         {
-            if (update.AudioInputDevice != null)
+            if (controller.Model.Settings.AudioInputDevice != audioInputDevice)
             {
-                controller.Model.Settings.AudioInputDevice = update.AudioInputDevice;
+                controller.Model.Settings.AudioInputDevice = audioInputDevice;
+                controller.Services.AudioRecorderSettingsService.Save(controller.Model.Settings);
             }
+        }
 
-            if (update.AudioOutputDevice != null)
+        public void UpdateAudioOutputDevice(AudioRecorderToolController controller, string audioOutputDevice)
+        {
+            if (controller.Model.Settings.AudioOutputDevice != audioOutputDevice)
             {
-                controller.Model.Settings.AudioOutputDevice = update.AudioOutputDevice;
+                controller.Model.Settings.AudioOutputDevice = audioOutputDevice;
+                controller.Services.AudioRecorderSettingsService.Save(controller.Model.Settings);
             }
+        }
 
-            if (update.SaveRecordingToFolder != null)
+        public void UpdateSaveRecordingToFolder(AudioRecorderToolController controller, string saveRecordingToFolder)
+        {
+            if (controller.Model.Settings.SaveRecordingToFolder != saveRecordingToFolder)
             {
-                controller.Model.Settings.SaveRecordingToFolder = update.SaveRecordingToFolder;
+                controller.Model.Settings.SaveRecordingToFolder = saveRecordingToFolder;
+                controller.Services.AudioRecorderSettingsService.Save(controller.Model.Settings);
             }
-
-            controller.Services.AudioRecorderSettingsService.Save(controller.Model.Settings);
         }
     }
 }

@@ -1,15 +1,83 @@
 ﻿using AudioRecorderV4;
+using HDE.AudioRecorder.Tools.AudioRecorder.Model;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.Resources;
-using Windows.Globalization;
 
 namespace HDE.AudioRecorder.Views
 {
     public sealed partial class RecordingView : INotifyPropertyChanged
     {
         private ResourceLoader _resourceLoader;
+
+        #region Input Devices Property
+
+        private List<string> inputDevices;
+        public List<string> InputDevices
+        {
+            get => inputDevices;
+            set
+            {
+                inputDevices = value;
+                OnPropertyChanged("InputDevices");
+            }
+        }
+
+        #endregion
+
+        #region Audio Input Device
+
+        private string audioInputDevice;
+
+        public string AudioInputDevice
+        {
+            get => audioInputDevice;
+            set
+            {
+                audioInputDevice = value;
+                OnPropertyChanged("AudioInputDevice");
+                App.Controller.UpdateAudioInputDevice(value);
+                AudioInputDeviceToggleSplitButton.IsChecked = value != null;
+            }
+        }
+
+        #endregion
+
+        #region Output Devices
+
+        private List<string> outputDevices;
+        public List<string> OutputDevices
+        {
+            get => outputDevices;
+            set
+            {
+                outputDevices = value;
+                OnPropertyChanged("OutputDevices");
+            }
+        }
+
+        #endregion
+
+        #region Audio Output Device
+
+        private string audioOutputDevice;
+        public string AudioOutputDevice
+        {
+            get => audioOutputDevice;
+            set
+            {
+                audioOutputDevice = value;
+                OnPropertyChanged("AudioOutputDevice");
+                App.Controller.UpdateAudioOutputDevice(value);
+                AudioOutputDeviceToggleSplitButton.IsChecked = value != null;
+            }
+        }
+
+        #endregion
+
 
         public string buttonTitle;
         public string ButtonTitle
@@ -37,11 +105,27 @@ namespace HDE.AudioRecorder.Views
         {
             this.InitializeComponent();
             this.DataContext = this;
+
+            InputDevices = App.Controller.Model.InputDevices;
+            AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
+
+            OutputDevices = App.Controller.Model.OutputDevices;
+            AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
         }
 
         private void OnOpenRecordingsFolder(object sender, RoutedEventArgs e)
         {
             App.Controller.OpenOutputFolder();
+        }
+
+        private void OnAudioInputDeviceToggleSplitButtonClick(object sender, SplitButtonClickEventArgs e)
+        {
+            AudioInputDevice = App.Controller.ToggleAudioInputDevice();
+        }
+
+        private void OnAudioOutputDeviceToggleSplitButtonClick(object sender, SplitButtonClickEventArgs e)
+        {
+            AudioOutputDevice = App.Controller.ToggleAudioOutputDevice();
         }
 
         private void OnRecordClick(object sender, RoutedEventArgs e)

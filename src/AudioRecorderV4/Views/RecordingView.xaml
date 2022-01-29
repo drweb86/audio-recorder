@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:AudioRecorderV4.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Loaded="Page_Loaded">
+    <Page.Resources>
+        <converters:TooltipConverter x:Key="TooltipConverter" />
+    </Page.Resources>
 
     <Grid Width="Auto" Margin="15">
         <Grid.RowDefinitions>
@@ -16,22 +20,73 @@
 
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="HyperlinkButton">
                 <Setter Property="Margin" Value="10 5 10 0"/>
             </Style>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="20 5 10 0"/>
-                <Setter Property="CornerRadius" Value="5"/>
-            </Style>
         </Grid.Resources>
 
-        <Button Grid.Row="0" Click="OnRecordClick" Style="{StaticResource AccentButtonStyle}" Margin="10">
+        <ToggleSplitButton Grid.Row="0"
+                           Grid.Column="0" 
+                           VerticalAlignment="Top"
+                           x:Name="AudioInputDeviceToggleSplitButton"
+                           Click="OnAudioInputDeviceToggleSplitButtonClick"
+                           ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
+                           Margin="10 0 0 0">
+            <!--  Click="myListButton_Click" -->
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                Glyph="&#xE720;"
+            />
+            <ToggleSplitButton.Flyout>
+                <Flyout Placement="Bottom">
+                    <!-- flyout content -->
+                </Flyout>
+            </ToggleSplitButton.Flyout>
+        </ToggleSplitButton>
+
+        <ToggleSplitButton Grid.Row="0"
+                           Grid.Column="1" 
+                           VerticalAlignment="Top"
+                           x:Name="AudioOutputDeviceToggleSplitButton"
+                           Click="OnAudioOutputDeviceToggleSplitButtonClick"
+                           ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
+                           Margin="5 0 0 0">
+            <!--  Click="myListButton_Click" -->
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                Glyph="&#xE7F6;"
+            />
+            <ToggleSplitButton.Flyout>
+                <Flyout Placement="Bottom">
+                    <!-- flyout content -->
+                </Flyout>
+            </ToggleSplitButton.Flyout>
+        </ToggleSplitButton>
+
+        <Button Grid.Row="0"
+                Grid.Column="2"
+                Click="OnRecordClick" 
+                Style="{StaticResource AccentButtonStyle}"
+                Margin="5 0 0 0">
             <StackPanel Orientation="Horizontal">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" Margin="5" />
-                <TextBlock Text="{Binding ButtonTitle}" Margin="5"></TextBlock>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" />
+                <TextBlock Text="{Binding ButtonTitle}"></TextBlock>
             </StackPanel>
         </Button>
-        <HyperlinkButton Grid.Row="1" Click="OnOpenRecordingsFolder" x:Uid="seeRecordings"></HyperlinkButton>
+
+        <HyperlinkButton 
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Click="OnOpenRecordingsFolder"
+            x:Uid="seeRecordings">
+        </HyperlinkButton>
     </Grid>
 </Page>

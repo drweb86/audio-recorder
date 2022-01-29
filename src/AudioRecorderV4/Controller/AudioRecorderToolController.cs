@@ -57,9 +57,29 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
             new OpenLogsFolderCommand().Execute(this);
         }
 
-        public void UpdateSettings(AudioRecorderSettings update)
+        public void UpdateAudioInputDevice(string audioInputDevice)
         {
-            new UpdateSettingsCommand().Execute(this, update);
+            new UpdateSettingsCommand().UpdateAudioInputDevice(this, audioInputDevice);
+        }
+
+        public void UpdateAudioOutputDevice(string audioOutputDevice)
+        {
+            new UpdateSettingsCommand().UpdateAudioOutputDevice(this, audioOutputDevice);
+        }
+
+        public void UpdateSaveRecordingToFolder(string saveRecordingToFolder)
+        {
+            new UpdateSettingsCommand().UpdateSaveRecordingToFolder(this, saveRecordingToFolder);
+        }
+
+        internal string ToggleAudioInputDevice()
+        {
+            return new ToggleAudioInputDeviceCommand().Execute(this);
+        }
+
+        internal string ToggleAudioOutputDevice()
+        {
+            return new ToggleAudioOutputDeviceCommand().Execute(this);
         }
     }
 }
