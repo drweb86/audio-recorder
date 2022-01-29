@@ -49,6 +49,7 @@
                 ToolTipService.ToolTip="{Binding IsAudioRecording, Converter={StaticResource IsRecordingToTooltipConverter}}"
                 Height="68"
                 Width="100"
+                IsEnabled="{Binding IsAudioRecordingEnabled}"
                 CornerRadius="7"
                 Foreground="White"
                 Background="{Binding IsAudioRecording, Converter={StaticResource IsRecordingToBackgroundConverter}}">

@@ -37,6 +37,19 @@ namespace HDE.AudioRecorder.Views
 
         #endregion
 
+        #region Is Audio Recording Enabled
+
+        public bool IsAudioRecordingEnabled
+        {
+            get => audioInputDevice != null || audioOutputDevice != null;
+            set
+            {
+                OnPropertyChanged("IsAudioRecordingEnabled");
+            }
+        }
+
+        #endregion
+
         #region Audio Input Device
 
         private string audioInputDevice;
@@ -48,6 +61,7 @@ namespace HDE.AudioRecorder.Views
             {
                 audioInputDevice = value;
                 OnPropertyChanged("AudioInputDevice");
+                OnPropertyChanged("IsAudioRecordingEnabled");
                 App.Controller.UpdateAudioInputDevice(value);
             }
         }
@@ -79,6 +93,7 @@ namespace HDE.AudioRecorder.Views
             {
                 audioOutputDevice = value;
                 OnPropertyChanged("AudioOutputDevice");
+                OnPropertyChanged("IsAudioRecordingEnabled");
                 App.Controller.UpdateAudioOutputDevice(value);
             }
         }
