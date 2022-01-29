@@ -11,7 +11,6 @@ namespace HDE.AudioRecorder.Views
     /// </summary>
     public sealed partial class Settings : INotifyPropertyChanged
     {
-        private string logsFolder;
         private string saveRecordingToFolder;
 
         public string SaveRecordingToFolder 
@@ -25,22 +24,11 @@ namespace HDE.AudioRecorder.Views
             }
         }
 
-        public string LogsFolder
-        {
-            get => logsFolder;
-            set
-            {
-                logsFolder = value;
-                OnPropertyChanged("LogsFolder");
-            }
-        }
-
         public Settings()
         {
             this.InitializeComponent();
 
             SaveRecordingToFolder = App.Controller.Model.Settings.SaveRecordingToFolder;
-            LogsFolder = App.Controller.Model.LogsFolder;
 
             this.DataContext = this;
         }

@@ -63,6 +63,27 @@ namespace AudioRecorderV4
         {
             App.Controller.Dispose();
         }
+
+        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            ReduceWindowSize();
+        }
+
+        bool _reduced = false;
+        private void ReduceWindowSize()
+        {
+            if (_reduced)
+            {
+                return;
+            }
+            // Use 'this' rather than 'window' as variable if this is about the current window.
+            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+            var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+
+            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 500, Height = 220 });
+            _reduced = true;
+        }
     }
 
     internal class NavigationException : Exception

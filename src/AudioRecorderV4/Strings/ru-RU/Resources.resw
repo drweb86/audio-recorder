@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationLogsFolder.Text" xml:space="preserve">
-    <value>Журнал приложения:</value>
+  <data name="Application.Text" xml:space="preserve">
+    <value>Приложение:</value>
   </data>
   <data name="ChangeFolder.Content" xml:space="preserve">
     <value>Изменить каталог</value>
@@ -137,6 +137,9 @@
   </data>
   <data name="DeviceRecordingIsDisabled" xml:space="preserve">
     <value>Запись с устройства отключена</value>
+  </data>
+  <data name="LogsFolder.Content" xml:space="preserve">
+    <value>Папка с журналами приложения</value>
   </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Запись</value>

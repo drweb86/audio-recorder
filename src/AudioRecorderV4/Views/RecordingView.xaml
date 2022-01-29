@@ -5,7 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:AudioRecorderV4.Converters"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Margin="15 15 15 15"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center">
     <Page.Resources>
         <converters:TooltipConverter x:Key="TooltipConverter" />
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
@@ -17,20 +20,15 @@
         <converters:AudioOutputDeviceToGlyphConverter x:Key="AudioOutputDeviceToGlyphConverter" />
     </Page.Resources>
 
-    <Grid Margin="15 40 15 15">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="HyperlinkButton">

@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationLogsFolder.Text" xml:space="preserve">
-    <value>Application Logs:</value>
+  <data name="Application.Text" xml:space="preserve">
+    <value>Application:</value>
   </data>
   <data name="ChangeFolder.Content" xml:space="preserve">
     <value>Change Folder</value>
@@ -137,6 +137,9 @@
   </data>
   <data name="DeviceRecordingIsDisabled" xml:space="preserve">
     <value>Device recording is disabled</value>
+  </data>
+  <data name="LogsFolder.Content" xml:space="preserve">
+    <value>Logs folder</value>
   </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Recording</value>
