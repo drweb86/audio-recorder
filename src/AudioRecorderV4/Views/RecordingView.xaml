@@ -39,7 +39,7 @@
                            x:Name="AudioInputDeviceToggleSplitButton"
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="10 0 0 0">
+                           Margin="10 3 0 0">
             <!--  Click="myListButton_Click" -->
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"
@@ -58,7 +58,7 @@
                            x:Name="AudioOutputDeviceToggleSplitButton"
                            Click="OnAudioOutputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="5 0 0 0">
+                           Margin="5 3 0 0">
             <!--  Click="myListButton_Click" -->
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"

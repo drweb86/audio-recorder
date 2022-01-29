@@ -1,9 +1,12 @@
 ﻿using AudioRecorderV4;
 using HDE.AudioRecorder.Tools.AudioRecorder.Model;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.Resources;
 
@@ -23,6 +26,7 @@ namespace HDE.AudioRecorder.Views
             {
                 inputDevices = value;
                 OnPropertyChanged("InputDevices");
+                AudioInputDeviceToggleSplitButton.IsEnabled = value != null && value.Count > 0;
             }
         }
 
@@ -41,6 +45,7 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioInputDevice");
                 App.Controller.UpdateAudioInputDevice(value);
                 AudioInputDeviceToggleSplitButton.IsChecked = value != null;
+                // AudioInputDeviceToggleSplitButton.Background = value != null ? new SolidColorBrush(Colors.Green) : null; Functionallity does not work.
             }
         }
 
@@ -56,6 +61,7 @@ namespace HDE.AudioRecorder.Views
             {
                 outputDevices = value;
                 OnPropertyChanged("OutputDevices");
+                AudioOutputDeviceToggleSplitButton.IsEnabled = value != null && value.Count > 0;
             }
         }
 
@@ -73,6 +79,7 @@ namespace HDE.AudioRecorder.Views
                 OnPropertyChanged("AudioOutputDevice");
                 App.Controller.UpdateAudioOutputDevice(value);
                 AudioOutputDeviceToggleSplitButton.IsChecked = value != null;
+                // AudioOutputDeviceToggleSplitButton.Background = value != null ? new SolidColorBrush(Colors.Green) : null; Functionallity does not work.
             }
         }
 
