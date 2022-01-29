@@ -12,6 +12,7 @@
         <converters:IsRecordingToBackgroundConverter x:Key="IsRecordingToBackgroundConverter" />
         <converters:IsRecordingToGlyphConverter x:Key="IsRecordingToGlyphConverter" />
         <converters:IsRecordingToTooltipConverter x:Key="IsRecordingToTooltipConverter" />
+        <converters:NotNullConverter x:Key="NotNullConverter" />
     </Page.Resources>
 
     <Grid Margin="15 40 15 15">
@@ -59,6 +60,7 @@
                            x:Name="AudioInputDeviceToggleSplitButton"
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
+                           IsChecked="{Binding AudioInputDevice, Converter={StaticResource NotNullConverter}}"
                            IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon 
                 x:Name="AudioInputDeviceFontIcon"
@@ -92,6 +94,7 @@
                            x:Name="AudioOutputDeviceToggleSplitButton"
                            Click="OnAudioOutputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
+                           IsChecked="{Binding AudioOutputDevice, Converter={StaticResource NotNullConverter}}"
                            IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon
                 x:Name="AudioOutputDeviceFontIcon"
