@@ -10,6 +10,7 @@
     <Page.Resources>
         <converters:TooltipConverter x:Key="TooltipConverter" />
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+        <converters:IsRecordingToBackgroundConverter x:Key="IsRecordingToBackgroundConverter" />
     </Page.Resources>
 
     <Grid Margin="15 40 15 15">
@@ -33,6 +34,7 @@
             </Style>
             <Style TargetType="ToggleSplitButton">
                 <Setter Property="Margin" Value="10 3 0 3"/>
+                <Setter Property="Height" Value="30" />
             </Style>
         </Grid.Resources>
 
@@ -44,8 +46,11 @@
                 Margin="5 0 0 0"
                 ToolTipService.ToolTip="{Binding ButtonTitle}"
                 Height="68"
-                Width="68">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" Foreground="Red" FontSize="45" />
+                Width="100"
+                CornerRadius="7"
+                Foreground="White"
+                Background="{Binding IsAudioRecording, Converter={StaticResource IsRecordingToBackgroundConverter}}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" FontSize="45" />
         </Button>
 
         <ToggleSplitButton Grid.Row="0"

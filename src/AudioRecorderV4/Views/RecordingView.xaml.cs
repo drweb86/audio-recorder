@@ -166,7 +166,7 @@ namespace HDE.AudioRecorder.Views
                 _resourceLoader.GetString("StartRecording");
 
             ButtonGlyph = App.Controller.IsAudioRecording ?
-                "\uE71A" :
+                "\uE73B" :
                 "\uE7C8";
         }
 

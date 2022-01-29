@@ -58,6 +58,11 @@ namespace AudioRecorderV4
             if (ContentFrame.CanGoBack)
                 ContentFrame.GoBack();
         }
+
+        private void Window_Closed(object sender, WindowEventArgs args)
+        {
+            App.Controller.Dispose();
+        }
     }
 
     internal class NavigationException : Exception
