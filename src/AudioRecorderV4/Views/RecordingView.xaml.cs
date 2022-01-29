@@ -1,20 +1,14 @@
 ﻿using AudioRecorderV4;
-using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Windows.ApplicationModel.Resources;
 
 namespace HDE.AudioRecorder.Views
 {
     public sealed partial class RecordingView : INotifyPropertyChanged
     {
-        private ResourceLoader _resourceLoader;
-
         #region Input Devices Property
 
         public bool IsAudioRecording
@@ -95,17 +89,6 @@ namespace HDE.AudioRecorder.Views
 
         #endregion
 
-        public string buttonTitle;
-        public string ButtonTitle
-        {
-            get => buttonTitle;
-            set
-            {
-                buttonTitle = value;
-                OnPropertyChanged("ButtonTitle");
-            }
-        }
-
         public RecordingView()
         {
             this.InitializeComponent();
@@ -144,15 +127,7 @@ namespace HDE.AudioRecorder.Views
             {
                 App.Controller.Start();
             }
-            RefreshTitle();
             OnPropertyChanged("IsAudioRecording");
-        }
-
-        private void RefreshTitle()
-        {
-            ButtonTitle = App.Controller.IsAudioRecording ? 
-                _resourceLoader.GetString("Stop") :
-                _resourceLoader.GetString("StartRecording");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -161,12 +136,6 @@ namespace HDE.AudioRecorder.Views
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            _resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
-            RefreshTitle();
         }
     }
 }
