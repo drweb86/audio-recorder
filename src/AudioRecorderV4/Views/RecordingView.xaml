@@ -6,15 +6,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:AudioRecorderV4.Converters"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
     Loaded="Page_Loaded">
     <Page.Resources>
         <converters:TooltipConverter x:Key="TooltipConverter" />
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
     </Page.Resources>
 
-    <Grid Width="Auto" Margin="15">
+    <Grid Margin="15 40 15 15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
 
@@ -29,16 +29,31 @@
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="HyperlinkButton">
-                <Setter Property="Margin" Value="10 5 10 0"/>
+                <Setter Property="Margin" Value="5 5 10 0"/>
+            </Style>
+            <Style TargetType="ToggleSplitButton">
+                <Setter Property="Margin" Value="10 3 0 3"/>
             </Style>
         </Grid.Resources>
 
+        <Button Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Click="OnRecordClick" 
+                Style="{StaticResource AccentButtonStyle}"
+                Margin="5 0 0 0"
+                ToolTipService.ToolTip="{Binding ButtonTitle}"
+                Height="68"
+                Width="68">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" Foreground="Red" FontSize="45" />
+        </Button>
+
         <ToggleSplitButton Grid.Row="0"
-                           Grid.Column="0" 
+                           Grid.Column="1" 
                            x:Name="AudioInputDeviceToggleSplitButton"
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="10 0 0 0">
+                           IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon 
                 x:Name="AudioInputDeviceFontIcon"
                 FontFamily="Segoe MDL2 Assets"
@@ -66,12 +81,12 @@
             </ToggleSplitButton.Flyout>
         </ToggleSplitButton>
 
-        <ToggleSplitButton Grid.Row="0"
+        <ToggleSplitButton Grid.Row="1"
                            Grid.Column="1" 
                            x:Name="AudioOutputDeviceToggleSplitButton"
                            Click="OnAudioOutputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
-                           Margin="5 0 0 0">
+                           IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
             <FontIcon
                 x:Name="AudioOutputDeviceFontIcon"
                 FontFamily="Segoe MDL2 Assets"
@@ -99,19 +114,10 @@
             </ToggleSplitButton.Flyout>
         </ToggleSplitButton>
 
-        <Button Grid.Row="0"
-                Grid.Column="2"
-                Click="OnRecordClick" 
-                Style="{StaticResource AccentButtonStyle}"
-                Margin="5 0 0 0">
-            <StackPanel Orientation="Horizontal">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding ButtonGlyph}" />
-                <TextBlock Text="{Binding ButtonTitle}"></TextBlock>
-            </StackPanel>
-        </Button>
+        
 
         <HyperlinkButton 
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="3"
             Click="OnOpenRecordingsFolder"
             x:Uid="seeRecordings">

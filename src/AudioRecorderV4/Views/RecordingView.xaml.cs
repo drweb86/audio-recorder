@@ -17,6 +17,19 @@ namespace HDE.AudioRecorder.Views
 
         #region Input Devices Property
 
+        public bool IsAudioRecording
+        {
+            get => App.Controller.IsAudioRecording;
+            set
+            {
+                OnPropertyChanged("IsAudioRecording");
+            }
+        }
+
+        #endregion
+
+        #region Input Devices Property
+
         private List<string> inputDevices;
         public List<string> InputDevices
         {
@@ -25,7 +38,6 @@ namespace HDE.AudioRecorder.Views
             {
                 inputDevices = value;
                 OnPropertyChanged("InputDevices");
-                AudioInputDeviceToggleSplitButton.IsEnabled = value != null && value.Count > 0;
             }
         }
 
@@ -60,7 +72,6 @@ namespace HDE.AudioRecorder.Views
             {
                 outputDevices = value;
                 OnPropertyChanged("OutputDevices");
-                AudioOutputDeviceToggleSplitButton.IsEnabled = value != null && value.Count > 0;
             }
         }
 
@@ -145,6 +156,7 @@ namespace HDE.AudioRecorder.Views
                 App.Controller.Start();
             }
             RefreshTitle();
+            OnPropertyChanged("IsAudioRecording");
         }
 
         private void RefreshTitle()
