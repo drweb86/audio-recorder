@@ -120,9 +120,6 @@
   <data name="Application.Text" xml:space="preserve">
     <value>Приложение:</value>
   </data>
-  <data name="ApplicationView.Content" xml:space="preserve">
-    <value>О приложении</value>
-  </data>
   <data name="AudioRecording" xml:space="preserve">
     <value>Audio Recording</value>
   </data>
@@ -188,5 +185,8 @@
   </data>
   <data name="SupportLink.Content" xml:space="preserve">
     <value>Поддержка</value>
+  </data>
+  <data name="TheApplicationView.Content" xml:space="preserve">
+    <value>О приложении</value>
   </data>
 </root>

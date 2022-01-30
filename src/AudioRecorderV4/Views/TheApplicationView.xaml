@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HDE.AudioRecorder.Views.ApplicationView"
+    x:Class="HDE.AudioRecorder.Views.TheApplicationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,12 +13,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.Style>
-            <Style TargetType="HyperlinkButton">
-                <Setter Property="Margin" Value="10 0 0 0"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            </Style>
-        </Grid.Style>
 
         <HyperlinkButton x:Uid="LogsFolder" Grid.Row="0" Click="OnOpenLogsFolder"></HyperlinkButton>
         <HyperlinkButton x:Uid="SupportLink" Grid.Row="1" Click="OnOpenSupportLink"></HyperlinkButton>

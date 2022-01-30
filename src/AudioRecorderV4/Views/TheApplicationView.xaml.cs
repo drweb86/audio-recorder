@@ -1,17 +1,14 @@
 ﻿using AudioRecorderV4;
 using Microsoft.UI.Xaml;
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace HDE.AudioRecorder.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ApplicationView
+    public sealed partial class TheApplicationView
     {
-        public ApplicationView()
+        public TheApplicationView()
         {
             this.InitializeComponent();
             this.DataContext = this;

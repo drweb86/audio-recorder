@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -60,6 +61,12 @@ namespace AudioRecorderV4
             Controller.Initialize();
             m_window = new MainWindow();
             m_window.Activate();
+            Application.Current.UnhandledException += Application_UnhandledException;
+        }
+
+        private void Application_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            App.Controller.Services.Log.Error(e.Exception);
         }
 
         private Window m_window;

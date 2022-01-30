@@ -13,9 +13,9 @@
   <ItemGroup>
     <None Remove="Resources.resw" />
     <None Remove="Strings\ru-RU\Resources.resw" />
-    <None Remove="Views\ApplicationView.xaml" />
     <None Remove="Views\RecordingView.xaml" />
     <None Remove="Views\Settings.xaml" />
+    <None Remove="Views\TheApplicationView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
     <Page Update="Views\RecordingView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\ApplicationView.xaml">
+    <Page Update="Views\TheApplicationView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
