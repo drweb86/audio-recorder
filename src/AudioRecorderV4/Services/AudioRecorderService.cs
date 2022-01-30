@@ -1,4 +1,6 @@
-﻿using HDE.Platform.Logging;
+﻿using AudioRecorderV4.Utils;
+using HDE.Platform.Logging;
+using NAudio.Lame;
 using NAudio.Wave;
 using System;
 using System.IO;
@@ -23,9 +25,9 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         private WaveFileWriter _outputFileWriter;
         private string _inputFileName;
         private string _outputFileName;
-        private string _mixFileName;
         private WaveFormat _wafeFormat;
         private DateTime _recordingStarted;
+        private DateTime _recordingEnded;
 
         public bool IsAudioRecording 
         { 
@@ -90,16 +92,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 
         public void StopRecording(string folderName)
         {
-            if (!Directory.Exists(folderName))
-                Directory.CreateDirectory(folderName);
-
-            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
-            var fileFormatString = resourceLoader.GetString("RecordingFileName");
-            var fileName = string.Format(fileFormatString,
-                _recordingStarted.ToString("yyyy-MM-dd"),
-                _recordingStarted.ToString("HH-mm-ss"),
-                DateTime.Now.ToString("HH-mm-ss"));
-            _mixFileName = Path.Combine(folderName, $"{fileName}.wav");
+            _recordingEnded = DateTime.Now;
 
             if (_inputWasapiLoopbackCapture != null)
             {
@@ -107,6 +100,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                 _inputWasapiLoopbackCapture.DataAvailable -= InputCallback;
                 _inputWasapiLoopbackCapture.Dispose();
                 _inputWasapiLoopbackCapture = null;
+                _inputFileWriter.Flush();
                 _inputFileWriter.Dispose();
                 _inputFileWriter = null;
             }
@@ -117,34 +111,62 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                 _outputWasapiLoopbackCapture.DataAvailable -= OutputCallback;
                 _outputWasapiLoopbackCapture.Dispose();
                 _outputWasapiLoopbackCapture = null;
+                _outputFileWriter.Flush();
                 _outputFileWriter.Dispose();
                 _outputFileWriter = null;
             }
 
+            string fileToConvert = null;
             if (_inputFileName == null || _outputFileName == null)
             {
-                CopyFile(_inputFileName ?? _outputFileName, _mixFileName);
+                fileToConvert = _inputFileName ?? _outputFileName;
             }
             else
             {
-                MixFiles();
+                var temp = ApplicationData.Current.TemporaryFolder.Path;
+                var mixedWaveFile = Path.Combine(temp, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-mix.wav");
+
+                MixFiles(_inputFileName, _outputFileName, mixedWaveFile);
+
+                fileToConvert = mixedWaveFile;
+            }
+
+            if (!Directory.Exists(folderName))
+                Directory.CreateDirectory(folderName);
+
+            var outputMp3FileName = FileHelperGenerator.GetOutputMp3FileName(_recordingStarted, _recordingEnded, folderName);
+            ConvertWaveToMp3(fileToConvert, outputMp3FileName);
+        }
+
+        private void ConvertWaveToMp3(string sourceWaveFile, string destinationMp3File)
+        {
+            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+
+            var tag = new ID3TagData
+            {
+                Title = Path.GetFileNameWithoutExtension(destinationMp3File),
+                Artist = Environment.UserName,
+                Album = resourceLoader.GetString("AudioRecordings"),
+                Year = _recordingEnded.Year.ToString(),
+                Genre = resourceLoader.GetString("AudioRecording"),
+            };
+
+            using (var reader = new AudioFileReader(sourceWaveFile))
+            using (var writer = new LameMP3FileWriter(destinationMp3File, reader.WaveFormat, 128, tag))
+            {
+                reader.CopyTo(writer);
             }
         }
 
-        private void CopyFile(string sourceFile, string destinationFile)
-        {
-            File.Copy(sourceFile, destinationFile, true);
-        }
-
-        private void MixFiles()
+        private static void MixFiles(string inputWaveFile1, string inputWaveFile2, string resultWaveFile)
         {
             using (var mixer = new WaveMixerStream32 { AutoStop = true })
-            using (var wav1 = new WaveFileReader(_inputFileName))
-            using (var wav2 = new WaveFileReader(_outputFileName))
+            using (var wav1 = new WaveFileReader(inputWaveFile1))
+            using (var wav2 = new WaveFileReader(inputWaveFile2))
             { 
                 mixer.AddInputStream(new WaveChannel32(wav1));
                 mixer.AddInputStream(new WaveChannel32(wav2));
-                WaveFileWriter.CreateWaveFile(_mixFileName, new Wave32To16Stream(mixer));
+                WaveFileWriter.CreateWaveFile(resultWaveFile, new Wave32To16Stream(mixer));
             }
         }
 
@@ -158,7 +180,9 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             _outputFileWriter.Write(data.Buffer, 0, data.BytesRecorded);
         }
 
-        /*Resample! var paths = new[] {
+        /*
+         * https://github.com/naudio/NAudio/blob/master/Docs/MixTwoAudioFilesToWav.md
+         * Resample! var paths = new[] {
     @"input1.wav",
     @"input2.wav",
     @"input3.wav"

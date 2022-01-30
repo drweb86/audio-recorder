@@ -120,6 +120,12 @@
   <data name="Application.Text" xml:space="preserve">
     <value>Приложение:</value>
   </data>
+  <data name="AudioRecording" xml:space="preserve">
+    <value>Audio Recording</value>
+  </data>
+  <data name="AudioRecordings" xml:space="preserve">
+    <value>Audio Recordings</value>
+  </data>
   <data name="ChangeFolder.Content" xml:space="preserve">
     <value>Изменить каталог</value>
   </data>
