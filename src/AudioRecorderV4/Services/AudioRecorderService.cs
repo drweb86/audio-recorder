@@ -147,20 +147,28 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             };
 
             using (var reader = new AudioFileReader(sourceWaveFile))
-            using (var writer = new LameMP3FileWriter(destinationMp3File, reader.WaveFormat, 128, tag))
+            using (var writer = new LameMP3FileWriter(destinationMp3File, reader.WaveFormat, 320, tag))
             {
                 reader.CopyTo(writer);
             }
         }
 
-        private static void MixFiles(string inputWaveFile1, string inputWaveFile2, string resultWaveFile)
+        private void Dump(string file, WaveFormat wave)
         {
+            _log.Debug($"Wave file 1 {file} format: SampleRate {wave.SampleRate}, Channels {wave.Channels}, ExtraSize {wave.ExtraSize}, AverageBytesPerSecond {wave.AverageBytesPerSecond}, Encoding {wave.Encoding}, BitsPerSample {wave.BitsPerSample}");
+        }
+
+        private void MixFiles(string inputWaveFile1, string inputWaveFile2, string resultWaveFile)
+        {
+            _log.Debug("Preparing to mix files using MediaFoundationResampler (required Vista+, Server with Windows Desktop Experience).");
             using (var stream1 = new FileStream(inputWaveFile1, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var stream2 = new FileStream(inputWaveFile2, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var reader1 = new WaveFileReader(stream1))
             using (var reader2 = new WaveFileReader(stream2))
             {
                 var waveFormats = new[] { reader1.WaveFormat, reader2.WaveFormat };
+                Dump(inputWaveFile1, reader1.WaveFormat);
+                Dump(inputWaveFile2, reader2.WaveFormat);
 
                 var maxChannels = waveFormats.Max(formats => formats.Channels);
                 var maxRate = waveFormats.Max(formats => formats.SampleRate);
@@ -171,20 +179,29 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                     maxRate > maxAllowedRate ? maxAllowedRate : maxRate,
                     16,
                     maxChannels > maxAllowedChannels ? maxAllowedChannels : maxChannels);
+                Dump(resultWaveFile, outputFormat);
 
                 var maxQuality = 60;
-                using (var resampler1 = new MediaFoundationResampler(reader1, outputFormat) { ResamplerQuality = maxQuality })
-                using (var resampler2 = new MediaFoundationResampler(reader2, outputFormat) { ResamplerQuality = maxQuality })
+                try
                 {
-                    var resamplers = new[]
+                    using (var resampler1 = new MediaFoundationResampler(reader1, outputFormat) { ResamplerQuality = maxQuality })
+                    using (var resampler2 = new MediaFoundationResampler(reader2, outputFormat) { ResamplerQuality = maxQuality })
                     {
+                        var resamplers = new[]
+                        {
                         resampler1.ToSampleProvider(),
                         resampler2.ToSampleProvider()
                     };
 
-                    var mixer = new MixingSampleProvider(resamplers);
+                        var mixer = new MixingSampleProvider(resamplers);
 
-                    WaveFileWriter.CreateWaveFile16(resultWaveFile, mixer);
+                        WaveFileWriter.CreateWaveFile16(resultWaveFile, mixer);
+                    }
+                }
+                catch (Exception e)
+                {
+                    _log.Error(e);
+                    throw;
                 }
             }
         }
