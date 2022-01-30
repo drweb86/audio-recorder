@@ -1,6 +1,8 @@
 ﻿using AudioRecorderV4;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -104,13 +106,34 @@ namespace HDE.AudioRecorder.Views
         {
             this.InitializeComponent();
             this.DataContext = this;
+        }
 
-            App.Controller.Initialize(); // Refreshing the sound devices list.
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            App.Controller.UpdatedAudioDevices += OnAudioDeviceListUpdated;
+            RefreshProperties();
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            App.Controller.UpdatedAudioDevices -= OnAudioDeviceListUpdated;
+            base.OnNavigatedFrom(e);
+        }
+
+        private void RefreshProperties()
+        {
             InputDevices = App.Controller.Model.InputDevices;
             AudioInputDevice = App.Controller.Model.Settings.AudioInputDevice;
 
             OutputDevices = App.Controller.Model.OutputDevices;
             AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
+
+        }
+
+        private void OnAudioDeviceListUpdated(object sender, EventArgs e)
+        {
+            RefreshProperties();
         }
 
         private void OnSeeRecordingsClick(object sender, object e)

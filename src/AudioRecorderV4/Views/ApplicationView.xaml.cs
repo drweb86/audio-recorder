@@ -1,5 +1,6 @@
 ﻿using AudioRecorderV4;
 using Microsoft.UI.Xaml;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

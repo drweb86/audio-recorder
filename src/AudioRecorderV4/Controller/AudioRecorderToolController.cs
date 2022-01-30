@@ -10,15 +10,24 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
     {
         public readonly ServiceContainer Services;
         public readonly AudioRecorderToolModel Model;
+        public EventHandler UpdatedAudioDevices;
+
         public AudioRecorderToolController(ILog log)
         {
             Model = new AudioRecorderToolModel();
             Services = new ServiceContainer(log);
+            Services.AudioDeviceUpdateNotificationClient.AudioDeviceChanges += OnAudioDeviceChanged;
+        }
+
+        private void OnAudioDeviceChanged(object sender, EventArgs e)
+        {
+            Initialize();
         }
 
         public void Initialize()
         {
             new InitializeCommand().Execute(this);
+            UpdatedAudioDevices?.Invoke(this, EventArgs.Empty);
         }
 
         public void Start()
@@ -41,10 +50,12 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 
         public void Dispose()
         {
+            Services.AudioDeviceUpdateNotificationClient.AudioDeviceChanges -= OnAudioDeviceChanged;
             if (IsAudioRecording)
             {
                 Stop();
             }
+            Services.Dispose();
         }
 
         internal void OpenOutputFolder()
