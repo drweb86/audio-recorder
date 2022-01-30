@@ -2,8 +2,10 @@
 using HDE.Platform.Logging;
 using NAudio.Lame;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.IO;
+using System.Linq;
 using Windows.Storage;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
@@ -25,7 +27,6 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         private WaveFileWriter _outputFileWriter;
         private string _inputFileName;
         private string _outputFileName;
-        private WaveFormat _wafeFormat;
         private DateTime _recordingStarted;
         private DateTime _recordingEnded;
 
@@ -44,7 +45,6 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             {
                 var outputDevice = _audioDevicesListService.GetOutputDevice(outputDeviceFriendlyName);
                 _outputWasapiLoopbackCapture = new WasapiLoopbackCapture(outputDevice);
-                _wafeFormat = _outputWasapiLoopbackCapture.WaveFormat;
                 _outputWasapiLoopbackCapture.DataAvailable += OutputCallback;
                 _outputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-output.wav");
                 _outputFileWriter = new WaveFileWriter(_outputFileName, _outputWasapiLoopbackCapture.WaveFormat);
@@ -54,18 +54,13 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             {
                 var waveSource = new WaveInEvent();
                 waveSource.DeviceNumber = FindWaveInDeviceName(inputDeviceFriendlyName);
-                if (_wafeFormat != null)
-                {
-                    waveSource.WaveFormat = _wafeFormat;
-                }
                 _inputWasapiLoopbackCapture = waveSource;
                 _inputWasapiLoopbackCapture.DataAvailable += InputCallback;
                 _inputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-input.wav");
-                _inputFileWriter = new WaveFileWriter(_inputFileName, _wafeFormat ?? _inputWasapiLoopbackCapture.WaveFormat);
+                _inputFileWriter = new WaveFileWriter(_inputFileName, _inputWasapiLoopbackCapture.WaveFormat);
             }
 
             _recordingStarted = DateTime.Now;
-
 
             if (_inputWasapiLoopbackCapture != null)
             {
@@ -134,7 +129,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             if (!Directory.Exists(folderName))
                 Directory.CreateDirectory(folderName);
 
-            var outputMp3FileName = FileHelperGenerator.GetOutputMp3FileName(_recordingStarted, _recordingEnded, folderName);
+            var outputMp3FileName = FileNameGenerator.GetOutputMp3FileName(_recordingStarted, _recordingEnded, folderName);
             ConvertWaveToMp3(fileToConvert, outputMp3FileName);
         }
 
@@ -160,13 +155,37 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 
         private static void MixFiles(string inputWaveFile1, string inputWaveFile2, string resultWaveFile)
         {
-            using (var mixer = new WaveMixerStream32 { AutoStop = true })
-            using (var wav1 = new WaveFileReader(inputWaveFile1))
-            using (var wav2 = new WaveFileReader(inputWaveFile2))
-            { 
-                mixer.AddInputStream(new WaveChannel32(wav1));
-                mixer.AddInputStream(new WaveChannel32(wav2));
-                WaveFileWriter.CreateWaveFile(resultWaveFile, new Wave32To16Stream(mixer));
+            using (var stream1 = new FileStream(inputWaveFile1, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var stream2 = new FileStream(inputWaveFile2, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var reader1 = new WaveFileReader(stream1))
+            using (var reader2 = new WaveFileReader(stream2))
+            {
+                var waveFormats = new[] { reader1.WaveFormat, reader2.WaveFormat };
+
+                var maxChannels = waveFormats.Max(formats => formats.Channels);
+                var maxRate = waveFormats.Max(formats => formats.SampleRate);
+
+                var maxAllowedRate = 48000;
+                var maxAllowedChannels = 2;
+                var outputFormat = new WaveFormat(
+                    maxRate > maxAllowedRate ? maxAllowedRate : maxRate,
+                    16,
+                    maxChannels > maxAllowedChannels ? maxAllowedChannels : maxChannels);
+
+                var maxQuality = 60;
+                using (var resampler1 = new MediaFoundationResampler(reader1, outputFormat) { ResamplerQuality = maxQuality })
+                using (var resampler2 = new MediaFoundationResampler(reader2, outputFormat) { ResamplerQuality = maxQuality })
+                {
+                    var resamplers = new[]
+                    {
+                        resampler1.ToSampleProvider(),
+                        resampler2.ToSampleProvider()
+                    };
+
+                    var mixer = new MixingSampleProvider(resamplers);
+
+                    WaveFileWriter.CreateWaveFile16(resultWaveFile, mixer);
+                }
             }
         }
 
@@ -179,36 +198,5 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         {
             _outputFileWriter.Write(data.Buffer, 0, data.BytesRecorded);
         }
-
-        /*
-         * https://github.com/naudio/NAudio/blob/master/Docs/MixTwoAudioFilesToWav.md
-         * Resample! var paths = new[] {
-    @"input1.wav",
-    @"input2.wav",
-    @"input3.wav"
-};
-
-// open all the input files
-var readers = paths.Select(f => new WaveFileReader(f)).ToArray();
-
-// choose the sample rate we will mix at
-var maxSampleRate = readers.Max(r => r.WaveFormat.SampleRate);
-
-// create the mixer inputs, resampling if necessary
-var mixerInputs = readers.Select(r => r.WaveFormat.SampleRate == maxSampleRate ?
-    r.ToSampleProvider() :
-    new MediaFoundationResampler(r, WaveFormat.CreateIeeeFloatWaveFormat(maxSampleRate, r.WaveFormat.Channels)).ToSampleProvider());
-
-// create the mixer
-var mixer = new MixingSampleProvider(mixerInputs);
-
-// write the mixed audio to a 16 bit WAV file
-WaveFileWriter.CreateWaveFile16(@"d:\mixed.wav", mixer);
-
-// clean up the readers
-foreach(var reader in readers)
-{
-    reader.Dispose();
-};*/
     }
 }

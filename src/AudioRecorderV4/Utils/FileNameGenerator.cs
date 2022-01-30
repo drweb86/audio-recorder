@@ -3,7 +3,7 @@ using System.IO;
 
 namespace AudioRecorderV4.Utils
 {
-    internal static class FileHelperGenerator
+    internal static class FileNameGenerator
     {
         public static string GetOutputMp3FileName(DateTime startRecording, DateTime endRecording, string folderName)
         {
