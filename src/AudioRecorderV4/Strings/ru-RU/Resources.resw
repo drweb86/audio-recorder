@@ -120,6 +120,9 @@
   <data name="Application.Text" xml:space="preserve">
     <value>Приложение:</value>
   </data>
+  <data name="ApplicationView.Content" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
   <data name="AudioRecording" xml:space="preserve">
     <value>Audio Recording</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="DeviceRecordingIsDisabled" xml:space="preserve">
     <value>Запись с устройства отключена</value>
   </data>
+  <data name="LicenseLink.Content" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
   <data name="LogsFolder.Content" xml:space="preserve">
     <value>Папка с журналами приложения</value>
+  </data>
+  <data name="PrivatePolicyLink.Content" xml:space="preserve">
+    <value>Конфиденциальность</value>
   </data>
   <data name="Recording.Content" xml:space="preserve">
     <value>Запись</value>
@@ -159,8 +168,8 @@
   <data name="SaveRecordingsToFolder.Text" xml:space="preserve">
     <value>Сохранять записи в папку:</value>
   </data>
-  <data name="seeRecordings.Content" xml:space="preserve">
-    <value>посмотреть записи</value>
+  <data name="SeeRecordings.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Посмотреть записи</value>
   </data>
   <data name="ShowDisableRecordingTeachingTip.CloseButtonContent" xml:space="preserve">
     <value>Закрыть</value>
@@ -176,5 +185,8 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Стоп</value>
+  </data>
+  <data name="SupportLink.Content" xml:space="preserve">
+    <value>Поддержка</value>
   </data>
 </root>

@@ -81,7 +81,7 @@ namespace AudioRecorderV4
             IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
             var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
             var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 500, Height = 220 });
+            appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 500, Height = 250 });
             _reduced = true;
         }
     }

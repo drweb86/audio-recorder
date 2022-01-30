@@ -24,7 +24,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -124,6 +123,17 @@
         </ToggleSplitButton>
 
         <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            Click="OnSeeRecordingsClick"
+            x:Uid="SeeRecordings">
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                Glyph="&#xE838;"
+            />
+        </Button>
+        
+        <Button
             Grid.Row="1"
             Grid.Column="2"
             Click="OnShowDisableRecordingHint">
@@ -138,12 +148,5 @@
 	        PreferredPlacement="Auto"
 	        IsLightDismissEnabled="True">
         </TeachingTip>
-
-        <HyperlinkButton 
-            Grid.Row="2"
-            Grid.ColumnSpan="3"
-            Click="OnOpenRecordingsFolder"
-            x:Uid="seeRecordings">
-        </HyperlinkButton>
     </Grid>
 </Page>

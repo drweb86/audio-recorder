@@ -16,6 +16,7 @@
                         IsBackEnabled="{Binding ElementName=ContentFrame, Path=CanGoBack}">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="Recording" Icon="Shop" Tag="RecordingView"/>
+                <NavigationViewItem x:Uid="ApplicationView" Icon="AllApps" Tag="ApplicationView" />
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" 
                    NavigationFailed="ContentFrame_OnNavigationFailed"/>

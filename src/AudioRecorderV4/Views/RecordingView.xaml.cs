@@ -113,7 +113,7 @@ namespace HDE.AudioRecorder.Views
             AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
         }
 
-        private void OnOpenRecordingsFolder(object sender, RoutedEventArgs e)
+        private void OnSeeRecordingsClick(object sender, object e)
         {
             App.Controller.OpenOutputFolder();
         }

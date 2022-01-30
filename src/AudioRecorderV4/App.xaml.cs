@@ -62,19 +62,6 @@ namespace AudioRecorderV4
             m_window.Activate();
         }
 
-        // TODO:
-        /*
-         void Dispose()
-        {
-            if (Controller.IsAudioRecording)
-            {
-                Controller.Stop();
-            }
-        }
-
-         
-         */
-
         private Window m_window;
     }
 }

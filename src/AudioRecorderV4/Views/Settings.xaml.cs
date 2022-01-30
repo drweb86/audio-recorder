@@ -46,11 +46,6 @@ namespace HDE.AudioRecorder.Views
             App.Controller.OpenOutputFolder();
         }
 
-        private void OnOpenLogsFolder(object sender, RoutedEventArgs e)
-        {
-            App.Controller.OpenLogsFolder();
-        }
-
         private void OnSaveRecordingToFolder(object sender, RoutedEventArgs e)
         {
             using (var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())

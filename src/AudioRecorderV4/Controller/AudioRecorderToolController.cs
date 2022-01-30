@@ -57,6 +57,20 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
             new OpenLogsFolderCommand().Execute(this);
         }
 
+        internal void OpenSupportLink()
+        {
+            new OpenSupportLinkCommand().Execute(this);
+        }
+
+        internal void OpenLicenseLink()
+        {
+            new OpenLicenseLinkCommand().Execute(this);
+        }
+
+        internal void OpenPrivatePolicyLink()
+        {
+            new OpenPrivatePolicyLinkCommand().Execute(this);
+        }
         public void UpdateAudioInputDevice(string audioInputDevice)
         {
             new UpdateSettingsCommand().UpdateAudioInputDevice(this, audioInputDevice);
