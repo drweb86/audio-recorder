@@ -9,6 +9,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Commands
     {
         public void Execute(AudioRecorderToolController controller)
         {
+            controller.Services.Log.Debug($"Required 64-bit Vista+ or Server with Desktop Experience. OS Information: {Environment.OSVersion.VersionString}, Is 64-bit {Environment.Is64BitOperatingSystem}");
             controller.Model.LogsFolder = Path.GetDirectoryName(controller.Services.Log.LogFile);
             controller.Model.InputDevices = controller.Services.AudioDevicesListService.GetInputDevices();
             controller.Model.OutputDevices = controller.Services.AudioDevicesListService.GetOutputDevices();
