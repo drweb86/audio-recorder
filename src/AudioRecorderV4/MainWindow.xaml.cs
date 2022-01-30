@@ -17,6 +17,17 @@ namespace AudioRecorderV4
             NavigateToView("RecordingView");
             _resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
             Title = _resourceLoader.GetString("ConferenceAudioRecorder");
+            App.Controller.UpdatedAudioDevices += OnUpdatedAudioDevices;
+        }
+
+        private void OnUpdatedAudioDevices(object sender, EventArgs e)
+        {
+            DispatcherQueue.TryEnqueue(() => RefreshView());
+        }
+
+        private void RefreshView()
+        {
+            NavigateToView("RecordingView");
         }
 
         private NavigationViewItem _lastItem;
@@ -62,6 +73,7 @@ namespace AudioRecorderV4
 
         private void Window_Closed(object sender, WindowEventArgs args)
         {
+            App.Controller.UpdatedAudioDevices -= OnUpdatedAudioDevices;
             App.Controller.Dispose();
         }
 

@@ -11,7 +11,6 @@
     HorizontalAlignment="Center">
     <Page.Resources>
         <converters:TooltipConverter x:Key="TooltipConverter" />
-        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <converters:IsRecordingToBackgroundConverter x:Key="IsRecordingToBackgroundConverter" />
         <converters:IsRecordingToGlyphConverter x:Key="IsRecordingToGlyphConverter" />
         <converters:IsRecordingToTooltipConverter x:Key="IsRecordingToTooltipConverter" />
@@ -62,7 +61,7 @@
                            Click="OnAudioInputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioInputDevice, Converter={StaticResource TooltipConverter}}"
                            IsChecked="{Binding AudioInputDevice, Converter={StaticResource NotNullConverter}}"
-                           IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
+                           IsEnabled="{Binding IsAudioInputDeviceEnabled}">
             <FontIcon 
                 Glyph="{Binding AudioInputDevice, Converter={StaticResource AudioInputDeviceToGlyphConverter}}"
                 FontFamily="Segoe MDL2 Assets"
@@ -95,7 +94,7 @@
                            Click="OnAudioOutputDeviceToggleSplitButtonClick"
                            ToolTipService.ToolTip="{Binding AudioOutputDevice, Converter={StaticResource TooltipConverter}}"
                            IsChecked="{Binding AudioOutputDevice, Converter={StaticResource NotNullConverter}}"
-                           IsEnabled="{Binding IsAudioRecording, Converter={StaticResource InvertBooleanConverter}}">
+                           IsEnabled="{Binding IsAudioOutputDeviceEnabled}">
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"
                 Glyph="{Binding AudioOutputDevice, Converter={StaticResource AudioOutputDeviceToGlyphConverter}}"

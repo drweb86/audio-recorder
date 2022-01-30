@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace HDE.AudioRecorder.Views
@@ -19,6 +20,34 @@ namespace HDE.AudioRecorder.Views
             set
             {
                 OnPropertyChanged("IsAudioRecording");
+                OnPropertyChanged("IsAudioInputDeviceEnabled");
+                OnPropertyChanged("IsAudioOutputDeviceEnabled");
+            }
+        }
+
+        #endregion
+
+        #region IsAudioInputDeviceEnabled
+
+        public bool IsAudioInputDeviceEnabled
+        {
+            get => !IsAudioRecording && InputDevices != null && InputDevices.Any();
+            set
+            {
+                OnPropertyChanged("IsAudioInputDeviceEnabled");
+            }
+        }
+
+        #endregion
+
+        #region IsAudioInputDeviceEnabled
+
+        public bool IsAudioOutputDeviceEnabled
+        {
+            get => !IsAudioRecording && OutputDevices != null && OutputDevices.Any();
+            set
+            {
+                OnPropertyChanged("IsAudioOutputDeviceEnabled");
             }
         }
 
@@ -34,6 +63,7 @@ namespace HDE.AudioRecorder.Views
             {
                 inputDevices = value;
                 OnPropertyChanged("InputDevices");
+                OnPropertyChanged("IsAudioInputDeviceEnabled");
             }
         }
 
@@ -80,6 +110,7 @@ namespace HDE.AudioRecorder.Views
             {
                 outputDevices = value;
                 OnPropertyChanged("OutputDevices");
+                OnPropertyChanged("IsAudioOutputDeviceEnabled");
             }
         }
 
@@ -110,15 +141,8 @@ namespace HDE.AudioRecorder.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            App.Controller.UpdatedAudioDevices += OnAudioDeviceListUpdated;
             RefreshProperties();
             base.OnNavigatedTo(e);
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            App.Controller.UpdatedAudioDevices -= OnAudioDeviceListUpdated;
-            base.OnNavigatedFrom(e);
         }
 
         private void RefreshProperties()
@@ -129,11 +153,6 @@ namespace HDE.AudioRecorder.Views
             OutputDevices = App.Controller.Model.OutputDevices;
             AudioOutputDevice = App.Controller.Model.Settings.AudioOutputDevice;
 
-        }
-
-        private void OnAudioDeviceListUpdated(object sender, EventArgs e)
-        {
-            DispatcherQueue.TryEnqueue(() => this.RefreshProperties());
         }
 
         private void OnSeeRecordingsClick(object sender, object e)
