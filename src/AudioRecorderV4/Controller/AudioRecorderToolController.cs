@@ -23,7 +23,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 
         public void Start()
         {
-            Services.AudioRecorderService.StartRecording(Model.Settings.AudioInputDevice, Model.Settings.AudioOutputDevice, Model.Settings.SaveRecordingToFolder);
+            Services.AudioRecorderService.StartRecording(Model.Settings.AudioInputDevice, Model.Settings.AudioOutputDevice);
         }
 
         public bool IsAudioRecording
@@ -36,7 +36,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
 
         public void Stop()
         {
-            Services.AudioRecorderService.StopRecording();
+            Services.AudioRecorderService.StopRecording(Model.Settings.SaveRecordingToFolder);
         }
 
         public void Dispose()

@@ -144,6 +144,9 @@
   <data name="Recording.Content" xml:space="preserve">
     <value>Recording</value>
   </data>
+  <data name="RecordingFileName" xml:space="preserve">
+    <value>Recording {0} from {1} to {2}</value>
+  </data>
   <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
     <value>Recording from "{0}" device is enabled</value>
   </data>

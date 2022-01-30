@@ -144,6 +144,9 @@
   <data name="Recording.Content" xml:space="preserve">
     <value>Запись</value>
   </data>
+  <data name="RecordingFileName" xml:space="preserve">
+    <value>Запись {0} с {1} до {2}</value>
+  </data>
   <data name="RecordingFromDeviceIsEnabled" xml:space="preserve">
     <value>Запись с устройства "{0}" включена</value>
   </data>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 {
@@ -21,42 +22,53 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         private string _outputFileName;
         private string _mixFileName;
         private WaveFormat _wafeFormat;
+        private DateTime _recordingStarted;
 
         public bool IsAudioRecording 
         { 
             get 
             { 
-                return _inputWasapiLoopbackCapture != null;
+                return _inputWasapiLoopbackCapture != null || _outputWasapiLoopbackCapture != null;
             } 
         }
-        public string StartRecording(string inputDeviceFriendlyName, string outputDeviceFriendlyName, string folderName)
+        public void StartRecording(string inputDeviceFriendlyName, string outputDeviceFriendlyName)
         {
-            var outputDevice = _audioRecorder.GetOutputDevice(outputDeviceFriendlyName);
-            _outputWasapiLoopbackCapture = new WasapiLoopbackCapture(outputDevice);
-            _wafeFormat = _outputWasapiLoopbackCapture.WaveFormat;
-            _outputWasapiLoopbackCapture.DataAvailable += OutputCallback;
+            var recordingFolder = ApplicationData.Current.TemporaryFolder.Path;
+            if (outputDeviceFriendlyName != null)
+            {
+                var outputDevice = _audioRecorder.GetOutputDevice(outputDeviceFriendlyName);
+                _outputWasapiLoopbackCapture = new WasapiLoopbackCapture(outputDevice);
+                _wafeFormat = _outputWasapiLoopbackCapture.WaveFormat;
+                _outputWasapiLoopbackCapture.DataAvailable += OutputCallback;
+                _outputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-output.wav");
+                _outputFileWriter = new WaveFileWriter(_outputFileName, _outputWasapiLoopbackCapture.WaveFormat);
+            }
 
-            var waveSource = new WaveInEvent();
-            waveSource.DeviceNumber = FindWaveInDeviceName(inputDeviceFriendlyName);
-            waveSource.WaveFormat = _wafeFormat;
-            _inputWasapiLoopbackCapture = waveSource;
-            _inputWasapiLoopbackCapture.DataAvailable += InputCallback;
+            if (inputDeviceFriendlyName != null)
+            {
+                var waveSource = new WaveInEvent();
+                waveSource.DeviceNumber = FindWaveInDeviceName(inputDeviceFriendlyName);
+                if (_wafeFormat != null)
+                {
+                    waveSource.WaveFormat = _wafeFormat;
+                }
+                _inputWasapiLoopbackCapture = waveSource;
+                _inputWasapiLoopbackCapture.DataAvailable += InputCallback;
+                _inputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-input.wav");
+                _inputFileWriter = new WaveFileWriter(_inputFileName, _wafeFormat ?? _inputWasapiLoopbackCapture.WaveFormat);
+            }
 
-            if (!Directory.Exists(folderName))
-                Directory.CreateDirectory(folderName);
+            _recordingStarted = DateTime.Now;
 
-            _inputFileName = Path.Combine(folderName, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-input.wav");
-            _inputFileWriter = new WaveFileWriter(_inputFileName, _wafeFormat);
 
-            _outputFileName = Path.Combine(folderName, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-output.wav");
-            _outputFileWriter = new WaveFileWriter(_outputFileName, _wafeFormat);
-
-            _mixFileName = Path.Combine(folderName, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}.wav");
-
-            _inputWasapiLoopbackCapture.StartRecording();
-            _outputWasapiLoopbackCapture.StartRecording();
-
-            return _mixFileName;
+            if (_inputWasapiLoopbackCapture != null)
+            {
+                _inputWasapiLoopbackCapture.StartRecording();
+            }
+            if (_outputWasapiLoopbackCapture != null)
+            {
+                _outputWasapiLoopbackCapture.StartRecording();
+            }
         }
 
         private int FindWaveInDeviceName(string inputDeviceFriendlyName)
@@ -72,23 +84,52 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             return 0;
         }
 
-        public void StopRecording()
+        public void StopRecording(string folderName)
         {
-            _inputWasapiLoopbackCapture.StopRecording();
-            _inputWasapiLoopbackCapture.DataAvailable -= InputCallback;
-            _inputWasapiLoopbackCapture.Dispose();
-            _inputWasapiLoopbackCapture = null;
-            _inputFileWriter.Dispose();
-            _inputFileWriter = null;
+            if (!Directory.Exists(folderName))
+                Directory.CreateDirectory(folderName);
 
-            _outputWasapiLoopbackCapture.StopRecording();
-            _outputWasapiLoopbackCapture.DataAvailable -= OutputCallback;
-            _outputWasapiLoopbackCapture.Dispose();
-            _outputWasapiLoopbackCapture = null;
-            _outputFileWriter.Dispose();
-            _outputFileWriter = null;
+            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+            var fileFormatString = resourceLoader.GetString("RecordingFileName");
+            var fileName = string.Format(fileFormatString,
+                _recordingStarted.ToString("yyyy-MM-dd"),
+                _recordingStarted.ToString("HH-mm-ss"),
+                DateTime.Now.ToString("HH-mm-ss"));
+            _mixFileName = Path.Combine(folderName, $"{fileName}.wav");
 
-            MixFiles();
+            if (_inputWasapiLoopbackCapture != null)
+            {
+                _inputWasapiLoopbackCapture.StopRecording();
+                _inputWasapiLoopbackCapture.DataAvailable -= InputCallback;
+                _inputWasapiLoopbackCapture.Dispose();
+                _inputWasapiLoopbackCapture = null;
+                _inputFileWriter.Dispose();
+                _inputFileWriter = null;
+            }
+
+            if (_outputWasapiLoopbackCapture != null)
+            {
+                _outputWasapiLoopbackCapture.StopRecording();
+                _outputWasapiLoopbackCapture.DataAvailable -= OutputCallback;
+                _outputWasapiLoopbackCapture.Dispose();
+                _outputWasapiLoopbackCapture = null;
+                _outputFileWriter.Dispose();
+                _outputFileWriter = null;
+            }
+
+            if (_inputFileName == null || _outputFileName == null)
+            {
+                CopyFile(_inputFileName ?? _outputFileName, _mixFileName);
+            }
+            else
+            {
+                MixFiles();
+            }
+        }
+
+        private void CopyFile(string sourceFile, string destinationFile)
+        {
+            File.Copy(sourceFile, destinationFile, true);
         }
 
         private void MixFiles()
