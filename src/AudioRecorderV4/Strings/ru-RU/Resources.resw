@@ -162,6 +162,15 @@
   <data name="seeRecordings.Content" xml:space="preserve">
     <value>посмотреть записи</value>
   </data>
+  <data name="ShowDisableRecordingTeachingTip.CloseButtonContent" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="ShowDisableRecordingTeachingTip.Subtitle" xml:space="preserve">
+    <value>Когда слышно эхо на записях, наиболее вероятно, что звук из динамиков попадает на микрофон. В этом случае отключите запись звука динамиков.</value>
+  </data>
+  <data name="ShowDisableRecordingTeachingTip.Title" xml:space="preserve">
+    <value>Слышно эхо на записях?</value>
+  </data>
   <data name="StartRecording" xml:space="preserve">
     <value>Начать запись</value>
   </data>

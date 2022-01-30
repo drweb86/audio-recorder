@@ -162,6 +162,15 @@
   <data name="seeRecordings.Content" xml:space="preserve">
     <value>see recordings</value>
   </data>
+  <data name="ShowDisableRecordingTeachingTip.CloseButtonContent" xml:space="preserve">
+    <value>Got it!</value>
+  </data>
+  <data name="ShowDisableRecordingTeachingTip.Subtitle" xml:space="preserve">
+    <value>When you are hearing echo on recordings most probably sound from speakers is grabbed by microphone. In this case disable recording from speakers.</value>
+  </data>
+  <data name="ShowDisableRecordingTeachingTip.Title" xml:space="preserve">
+    <value>Do you hear echo on recordings?</value>
+  </data>
   <data name="StartRecording" xml:space="preserve">
     <value>Start Recording</value>
   </data>

@@ -118,6 +118,11 @@ namespace HDE.AudioRecorder.Views
             App.Controller.OpenOutputFolder();
         }
 
+        private void OnShowDisableRecordingHint(object sender, object e)
+        {
+            ShowDisableRecordingTeachingTip.IsOpen = true;
+        }
+
         private void OnAudioInputDeviceToggleSplitButtonClick(object sender, SplitButtonClickEventArgs e)
         {
             AudioInputDevice = App.Controller.ToggleAudioInputDevice();

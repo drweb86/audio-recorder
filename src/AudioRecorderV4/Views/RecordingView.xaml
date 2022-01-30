@@ -29,6 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="HyperlinkButton">
@@ -122,7 +123,21 @@
             </ToggleSplitButton.Flyout>
         </ToggleSplitButton>
 
-        
+        <Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Click="OnShowDisableRecordingHint">
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                Glyph="&#xE82F;"
+            />
+        </Button>
+
+        <TeachingTip x:Name="ShowDisableRecordingTeachingTip"
+                     x:Uid="ShowDisableRecordingTeachingTip"
+	        PreferredPlacement="Auto"
+	        IsLightDismissEnabled="True">
+        </TeachingTip>
 
         <HyperlinkButton 
             Grid.Row="2"
