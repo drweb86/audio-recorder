@@ -54,6 +54,11 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             _log.Debug("Get default input device");
             try
             {
+                if (!mMDeviceEnumerator.HasDefaultAudioEndpoint(DataFlow.Capture, Role.Communications))
+                {
+                    _log.Debug("Default audio endpoint is missing");
+                    return null;
+                }
                 var device = mMDeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Communications);
                 _log.Debug($"Default input device is {device.FriendlyName}");
                 return device.FriendlyName;
@@ -71,6 +76,11 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             _log.Debug("Get default output device");
             try
             {
+                if (!mMDeviceEnumerator.HasDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia))
+                {
+                    _log.Debug("Default audio endpoint is missing");
+                    return null;
+                }
                 var device = mMDeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
                 _log.Debug($"Default output device is {device.FriendlyName}");
                 return device.FriendlyName;

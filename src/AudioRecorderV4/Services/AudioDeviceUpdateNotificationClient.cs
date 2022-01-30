@@ -32,12 +32,10 @@ namespace AudioRecorderV4.Services
 
         public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
         {
-            AudioDeviceChanges?.Invoke(this, null);
         }
 
         public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key)
         {
-            AudioDeviceChanges?.Invoke(this, null);
         }
 
         public void Dispose()

@@ -133,7 +133,7 @@ namespace HDE.AudioRecorder.Views
 
         private void OnAudioDeviceListUpdated(object sender, EventArgs e)
         {
-            RefreshProperties();
+            DispatcherQueue.TryEnqueue(() => this.RefreshProperties());
         }
 
         private void OnSeeRecordingsClick(object sender, object e)
