@@ -9,8 +9,8 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
         {
             Log = log;
 
-            AudioDevicesListService = new AudioDevicesListService();
-            AudioRecorderService = new AudioRecorderService();
+            AudioDevicesListService = new AudioDevicesListService(log);
+            AudioRecorderService = new AudioRecorderService(AudioDevicesListService);
             AudioRecorderSettingsService = new AudioRecorderSettingsService(log);
 
         }
