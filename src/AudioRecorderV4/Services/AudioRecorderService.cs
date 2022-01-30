@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using HDE.Platform.Logging;
+using NAudio.Wave;
 using System;
 using System.IO;
 using Windows.Storage;
@@ -8,10 +9,12 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
     internal class AudioRecorderService
     {
         private readonly AudioDevicesListService _audioDevicesListService;
+        private readonly ILog _log;
 
-        public AudioRecorderService(AudioDevicesListService audioDevicesListService)
+        public AudioRecorderService(AudioDevicesListService audioDevicesListService, ILog log)
         {
             _audioDevicesListService = audioDevicesListService;
+            _log = log;
         }
 
         private IWaveIn _inputWasapiLoopbackCapture;
@@ -33,6 +36,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         }
         public void StartRecording(string inputDeviceFriendlyName, string outputDeviceFriendlyName)
         {
+            _log.Debug($"Start recording input {inputDeviceFriendlyName}, output {outputDeviceFriendlyName}");
             var recordingFolder = ApplicationData.Current.TemporaryFolder.Path;
             if (outputDeviceFriendlyName != null)
             {
