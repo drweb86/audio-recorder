@@ -19,16 +19,18 @@ namespace AudioRecorderV4.Services
         private readonly WaveFormat _waveFormat = new WaveFormat();
         private readonly bool _autoAdjustVolume;
 
+        public string WaveFile => _waveFile;
+
         /// <summary>
         /// Creates job.
         /// </summary>
-        /// <param name="waveFile">The destination file name.</param>
+        /// <param name="waveFile">The destination file name. Temporary file will be used if null.</param>
         /// <param name="renderMulitmediaDeviceFriendlyName">The render multimedia active device friendly name. If null default output device will be used.</param>
         /// <param name="waveFormat">Recording wave format: bit must be 16, channels must be 1 or 2.</param>
         /// <param name="autoAdjustVolume">Recording from speakers will have low volume. Normalization increases volume to the maximum possible.</param>
-        public WasapiLoopbackRecordingJob(string waveFile, string renderMulitmediaDeviceFriendlyName = null, WaveFormat waveFormat = null, bool autoAdjustVolume = true)
+        public WasapiLoopbackRecordingJob(string waveFile = null, string renderMulitmediaDeviceFriendlyName = null, WaveFormat waveFormat = null, bool autoAdjustVolume = true)
         {
-            _waveFile = waveFile;
+            _waveFile = waveFile ?? Path.GetTempFileName();
             _renderMulitmediaDeviceFriendlyName = renderMulitmediaDeviceFriendlyName;
             _cancellationToken = _cancelTokenSource.Token;
             _waveFormat = waveFormat ?? new WaveFormat();
@@ -79,7 +81,8 @@ namespace AudioRecorderV4.Services
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {
                 var capabilities = WaveOut.GetCapabilities(i);
-                if (device.FriendlyName.StartsWith(capabilities.ProductName))
+                var comparisonFriendlyName = device.FriendlyName.Length > 31 ? device.FriendlyName.Substring(0, 31) : device.FriendlyName;
+                if (capabilities.ProductName == comparisonFriendlyName)
                     return i;
             }
             throw new ArgumentException("Cannot find output device number!");

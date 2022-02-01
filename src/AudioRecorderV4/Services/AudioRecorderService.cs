@@ -13,116 +13,94 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 {
     internal class AudioRecorderService
     {
-        private readonly AudioDevicesListService _audioDevicesListService;
         private readonly ILog _log;
 
-        public AudioRecorderService(AudioDevicesListService audioDevicesListService, ILog log)
+        public AudioRecorderService(ILog log)
         {
-            _audioDevicesListService = audioDevicesListService;
             _log = log;
         }
 
-        private IWaveIn _inputWasapiLoopbackCapture;
-        private WaveFileWriter _inputFileWriter;
-        private string _inputFileName;
-        private string _outputFileName;
         private DateTime _recordingStarted;
         private DateTime _recordingEnded;
         private WasapiLoopbackRecordingJob _recordSpeakerJob;
+        private WaveInRecordingJob _waveInRecordingJob;
 
         public bool IsAudioRecording 
         { 
             get 
             { 
-                return _inputWasapiLoopbackCapture != null || _recordSpeakerJob != null;
+                return _waveInRecordingJob != null || _recordSpeakerJob != null;
             } 
         }
         public void StartRecording(string inputDeviceFriendlyName, string outputDeviceFriendlyName)
         {
             _log.Debug($"Start recording input {inputDeviceFriendlyName}, output {outputDeviceFriendlyName}");
-            var recordingFolder = ApplicationData.Current.TemporaryFolder.Path;
+
             if (outputDeviceFriendlyName != null)
             {
-                _outputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-output.wav");
-                _recordSpeakerJob = new WasapiLoopbackRecordingJob(_outputFileName, outputDeviceFriendlyName);
+                _recordSpeakerJob = new WasapiLoopbackRecordingJob(null, outputDeviceFriendlyName);
             }
 
             if (inputDeviceFriendlyName != null)
             {
-                var waveSource = new WaveInEvent();
-                waveSource.DeviceNumber = FindWaveInDeviceName(inputDeviceFriendlyName);
-                _inputWasapiLoopbackCapture = waveSource;
-                _inputWasapiLoopbackCapture.DataAvailable += InputCallback;
-                _inputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-input.wav");
-                _inputFileWriter = new WaveFileWriter(_inputFileName, _inputWasapiLoopbackCapture.WaveFormat);
+                _waveInRecordingJob = new WaveInRecordingJob(null, inputDeviceFriendlyName);
             }
 
             _recordingStarted = DateTime.Now;
 
-            if (_inputWasapiLoopbackCapture != null)
-            {
-                _inputWasapiLoopbackCapture.StartRecording();
-            }
-            if (outputDeviceFriendlyName != null)
-            {
-                _recordSpeakerJob.Start();
-            }
-        }
-
-        private int FindWaveInDeviceName(string inputDeviceFriendlyName)
-        {
-            for (int i = 0; i < WaveIn.DeviceCount; i++)
-            {
-                var capabilities = WaveIn.GetCapabilities(i);
-                if (capabilities.ProductName == inputDeviceFriendlyName.Substring(0, 31))
-                {
-                    return i;
-                }
-            }
-            return 0;
+            _waveInRecordingJob?.Start();
+            _recordSpeakerJob?.Start();
         }
 
         public void StopRecording(string folderName)
         {
             _recordingEnded = DateTime.Now;
-
-            if (_inputWasapiLoopbackCapture != null)
-            {
-                _inputWasapiLoopbackCapture.StopRecording();
-                _inputWasapiLoopbackCapture.DataAvailable -= InputCallback;
-                _inputWasapiLoopbackCapture.Dispose();
-                _inputWasapiLoopbackCapture = null;
-                _inputFileWriter.Flush();
-                _inputFileWriter.Dispose();
-                _inputFileWriter = null;
-            }
-
-            if (_recordSpeakerJob != null)
-            {
-                _recordSpeakerJob.Stop();
-                _recordSpeakerJob = null;
-            }
-
             string fileToConvert = null;
-            if (_inputFileName == null || _outputFileName == null)
+            try
             {
-                fileToConvert = _inputFileName ?? _outputFileName;
+                _waveInRecordingJob?.Stop();
+                _recordSpeakerJob?.Stop();
+
+                if (_waveInRecordingJob?.WaveFile == null || _recordSpeakerJob?.WaveFile == null)
+                {
+                    fileToConvert = _waveInRecordingJob?.WaveFile ?? _recordSpeakerJob?.WaveFile;
+                }
+                else
+                {
+                    var mixedWaveFile = Path.GetTempFileName();
+
+                    MixFiles(_waveInRecordingJob?.WaveFile, _recordSpeakerJob?.WaveFile, mixedWaveFile);
+
+                    fileToConvert = mixedWaveFile;
+                }
+
+                if (!Directory.Exists(folderName))
+                    Directory.CreateDirectory(folderName);
+
+                var outputMp3FileName = FileNameGenerator.GetOutputMp3FileName(_recordingStarted, _recordingEnded, folderName);
+                ConvertWaveToMp3(fileToConvert, outputMp3FileName);
             }
-            else
+            catch (Exception e)
             {
-                var temp = ApplicationData.Current.TemporaryFolder.Path;
-                var mixedWaveFile = Path.Combine(temp, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-mix.wav");
-
-                MixFiles(_inputFileName, _outputFileName, mixedWaveFile);
-
-                fileToConvert = mixedWaveFile;
+                _log.Error(e);
+                throw;
             }
+            finally
+            {
+                if (_waveInRecordingJob != null)
+                {
+                    File.Delete(_waveInRecordingJob.WaveFile);
+                    _waveInRecordingJob = null;
+                }
+                if (_recordSpeakerJob != null)
+                {
+                    File.Delete(_recordSpeakerJob?.WaveFile);
+                    _recordSpeakerJob = null;
+                }
 
-            if (!Directory.Exists(folderName))
-                Directory.CreateDirectory(folderName);
-
-            var outputMp3FileName = FileNameGenerator.GetOutputMp3FileName(_recordingStarted, _recordingEnded, folderName);
-            ConvertWaveToMp3(fileToConvert, outputMp3FileName);
+                if (File.Exists(fileToConvert))
+                    File.Delete(fileToConvert);
+            }
         }
 
         private void ConvertWaveToMp3(string sourceWaveFile, string destinationMp3File)
@@ -147,7 +125,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
 
         private void Dump(string file, WaveFormat wave)
         {
-            _log.Debug($"Wave file 1 {file} format: SampleRate {wave.SampleRate}, Channels {wave.Channels}, ExtraSize {wave.ExtraSize}, AverageBytesPerSecond {wave.AverageBytesPerSecond}, Encoding {wave.Encoding}, BitsPerSample {wave.BitsPerSample}");
+            _log.Debug($"Wave file '{file}' format: SampleRate {wave.SampleRate}, Channels {wave.Channels}, ExtraSize {wave.ExtraSize}, AverageBytesPerSecond {wave.AverageBytesPerSecond}, Encoding {wave.Encoding}, BitsPerSample {wave.BitsPerSample}");
         }
 
         private void MixFiles(string inputWaveFile1, string inputWaveFile2, string resultWaveFile)
@@ -196,11 +174,6 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                     throw;
                 }
             }
-        }
-
-        private void InputCallback(object sender, WaveInEventArgs data)
-        {
-            _inputFileWriter.Write(data.Buffer, 0, data.BytesRecorded);
         }
     }
 }

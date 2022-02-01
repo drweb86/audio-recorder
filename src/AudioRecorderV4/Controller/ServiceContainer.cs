@@ -14,7 +14,7 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Controller
             MMDeviceEnumerator = new NAudio.CoreAudioApi.MMDeviceEnumerator();
             AudioDeviceUpdateNotificationClient = new AudioDeviceUpdateNotificationClient(MMDeviceEnumerator);
             AudioDevicesListService = new AudioDevicesListService(log, MMDeviceEnumerator);
-            AudioRecorderService = new AudioRecorderService(AudioDevicesListService, log);
+            AudioRecorderService = new AudioRecorderService(log);
             AudioRecorderSettingsService = new AudioRecorderSettingsService(log);
         }
 
