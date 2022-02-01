@@ -125,6 +125,8 @@
             Grid.Row="0"
             Grid.Column="2"
             Click="OnSeeRecordingsClick"
+            Style="{StaticResource AccentButtonStyle}"
+            Margin="3 0 0 0 "
             x:Uid="SeeRecordings">
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"
@@ -135,6 +137,7 @@
         <Button
             Grid.Row="1"
             Grid.Column="2"
+            Margin="3 0 0 0 "
             Click="OnShowDisableRecordingHint">
             <FontIcon
                 FontFamily="Segoe MDL2 Assets"

@@ -12,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources.resw" />
-    <None Remove="Strings\ru-RU\Resources.resw" />
+    <None Remove="Strings\ru\Resources.resw" />
     <None Remove="Views\RecordingView.xaml" />
     <None Remove="Views\Settings.xaml" />
     <None Remove="Views\TheApplicationView.xaml" />
