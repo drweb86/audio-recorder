@@ -144,6 +144,21 @@
   <data name="DeviceRecordingIsDisabled" xml:space="preserve">
     <value>Запись с устройства отключена</value>
   </data>
+  <data name="GotIt" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Help1" xml:space="preserve">
+    <value>Сначала выберите аудио-устройства, которые используются в приложениях для конференций.</value>
+  </data>
+  <data name="Help2" xml:space="preserve">
+    <value>Затем сделайте запись тестового звонка. Если на записи будет эхо, значит микрофон слышит динамики. В этом случае отключите запись динамиков или используйте наушники.</value>
+  </data>
+  <data name="Help3" xml:space="preserve">
+    <value>Затем перед началом конференции начните запись, а по окончании конференции остановите запись.</value>
+  </data>
+  <data name="Help4" xml:space="preserve">
+    <value>MP3 файл с записью будет сохранен в каталог с аудио-записями, открыть который можно нажав на кнопку 'Посмотреть записи'.</value>
+  </data>
   <data name="LicenseLink.Content" xml:space="preserve">
     <value>Лицензия</value>
   </data>
@@ -167,15 +182,6 @@
   </data>
   <data name="SeeRecordings.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Посмотреть записи</value>
-  </data>
-  <data name="ShowDisableRecordingTeachingTip.CloseButtonContent" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
-  <data name="ShowDisableRecordingTeachingTip.Subtitle" xml:space="preserve">
-    <value>Когда слышно эхо на записях, наиболее вероятно, что звук из динамиков попадает на микрофон. В этом случае отключите запись звука динамиков.</value>
-  </data>
-  <data name="ShowDisableRecordingTeachingTip.Title" xml:space="preserve">
-    <value>Слышно эхо на записях?</value>
   </data>
   <data name="StartRecording" xml:space="preserve">
     <value>Начать запись</value>

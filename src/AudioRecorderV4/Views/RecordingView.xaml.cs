@@ -160,9 +160,25 @@ namespace HDE.AudioRecorder.Views
             App.Controller.OpenOutputFolder();
         }
 
-        private void OnShowDisableRecordingHint(object sender, object e)
+        private async void OnShowDisableRecordingHint(object sender, object e)
         {
-            ShowDisableRecordingTeachingTip.IsOpen = true;
+            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = this.Content.XamlRoot;
+            dialog.CloseButtonText = resourceLoader.GetString("GotIt");
+            dialog.DefaultButton = ContentDialogButton.Close;
+            dialog.Content = resourceLoader.GetString("Help1");
+            await dialog.ShowAsync();
+
+            dialog.Content = resourceLoader.GetString("Help2");
+            await dialog.ShowAsync();
+
+            dialog.Content = resourceLoader.GetString("Help3");
+            await dialog.ShowAsync();
+
+            dialog.Content = resourceLoader.GetString("Help4");
+            await dialog.ShowAsync();
         }
 
         private void OnAudioInputDeviceToggleSplitButtonClick(object sender, SplitButtonClickEventArgs e)

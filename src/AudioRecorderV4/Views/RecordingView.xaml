@@ -144,11 +144,5 @@
                 Glyph="&#xE82F;"
             />
         </Button>
-
-        <TeachingTip x:Name="ShowDisableRecordingTeachingTip"
-                     x:Uid="ShowDisableRecordingTeachingTip"
-	        PreferredPlacement="Auto"
-	        IsLightDismissEnabled="True">
-        </TeachingTip>
     </Grid>
 </Page>
