@@ -1,4 +1,5 @@
-﻿using AudioRecorderV4.Utils;
+﻿using AudioRecorderV4.Services;
+using AudioRecorderV4.Utils;
 using HDE.Platform.Logging;
 using NAudio.Lame;
 using NAudio.Wave;
@@ -22,19 +23,18 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         }
 
         private IWaveIn _inputWasapiLoopbackCapture;
-        private WasapiLoopbackCapture _outputWasapiLoopbackCapture;
         private WaveFileWriter _inputFileWriter;
-        private WaveFileWriter _outputFileWriter;
         private string _inputFileName;
         private string _outputFileName;
         private DateTime _recordingStarted;
         private DateTime _recordingEnded;
+        private WasapiLoopbackRecordingJob _recordSpeakerJob;
 
         public bool IsAudioRecording 
         { 
             get 
             { 
-                return _inputWasapiLoopbackCapture != null || _outputWasapiLoopbackCapture != null;
+                return _inputWasapiLoopbackCapture != null || _recordSpeakerJob != null;
             } 
         }
         public void StartRecording(string inputDeviceFriendlyName, string outputDeviceFriendlyName)
@@ -43,11 +43,8 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             var recordingFolder = ApplicationData.Current.TemporaryFolder.Path;
             if (outputDeviceFriendlyName != null)
             {
-                var outputDevice = _audioDevicesListService.GetOutputDevice(outputDeviceFriendlyName);
-                _outputWasapiLoopbackCapture = new WasapiLoopbackCapture(outputDevice);
-                _outputWasapiLoopbackCapture.DataAvailable += OutputCallback;
                 _outputFileName = Path.Combine(recordingFolder, $"{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss")}-output.wav");
-                _outputFileWriter = new WaveFileWriter(_outputFileName, _outputWasapiLoopbackCapture.WaveFormat);
+                _recordSpeakerJob = new WasapiLoopbackRecordingJob(_outputFileName, outputDeviceFriendlyName);
             }
 
             if (inputDeviceFriendlyName != null)
@@ -66,9 +63,9 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
             {
                 _inputWasapiLoopbackCapture.StartRecording();
             }
-            if (_outputWasapiLoopbackCapture != null)
+            if (outputDeviceFriendlyName != null)
             {
-                _outputWasapiLoopbackCapture.StartRecording();
+                _recordSpeakerJob.Start();
             }
         }
 
@@ -100,15 +97,10 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                 _inputFileWriter = null;
             }
 
-            if (_outputWasapiLoopbackCapture != null)
+            if (_recordSpeakerJob != null)
             {
-                _outputWasapiLoopbackCapture.StopRecording();
-                _outputWasapiLoopbackCapture.DataAvailable -= OutputCallback;
-                _outputWasapiLoopbackCapture.Dispose();
-                _outputWasapiLoopbackCapture = null;
-                _outputFileWriter.Flush();
-                _outputFileWriter.Dispose();
-                _outputFileWriter = null;
+                _recordSpeakerJob.Stop();
+                _recordSpeakerJob = null;
             }
 
             string fileToConvert = null;
@@ -209,11 +201,6 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
         private void InputCallback(object sender, WaveInEventArgs data)
         {
             _inputFileWriter.Write(data.Buffer, 0, data.BytesRecorded);
-        }
-
-        private void OutputCallback(object sender, WaveInEventArgs data)
-        {
-            _outputFileWriter.Write(data.Buffer, 0, data.BytesRecorded);
         }
     }
 }
