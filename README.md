@@ -25,6 +25,6 @@ Records audio input and output for conference calls, including Viber, Skype, Tea
 
 # Changelog
 
-## 1.0.3
+## 1.0.4.0
 
 - Initial release with core functionality.
