@@ -159,9 +159,9 @@ namespace HDE.AudioRecorder.Tools.AudioRecorder.Services
                     {
                         var resamplers = new[]
                         {
-                        resampler1.ToSampleProvider(),
-                        resampler2.ToSampleProvider()
-                    };
+                            resampler1.ToSampleProvider(),
+                            resampler2.ToSampleProvider()
+                        };
 
                         var mixer = new MixingSampleProvider(resamplers);
 

@@ -121,10 +121,10 @@
     <value>Приложение:</value>
   </data>
   <data name="AudioRecording" xml:space="preserve">
-    <value>Audio Recording</value>
+    <value>Аудиозапись</value>
   </data>
   <data name="AudioRecordings" xml:space="preserve">
-    <value>Audio Recordings</value>
+    <value>Аудиозаписи</value>
   </data>
   <data name="ChangeFolder.Content" xml:space="preserve">
     <value>Изменить каталог</value>

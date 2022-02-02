@@ -38,7 +38,12 @@ namespace AudioRecorderV4
             var item = args.InvokedItemContainer as NavigationViewItem;
             if (item == null || item == _lastItem)
                 return;
-            var clickedView = item.Tag?.ToString() ?? "SettingsView";
+
+            var clickedView = "Settings";
+            if (item.Name != "SettingsItem")
+            {
+                clickedView = item.Tag?.ToString();
+            }
             if (!NavigateToView(clickedView)) return;
             _lastItem = item;
         }

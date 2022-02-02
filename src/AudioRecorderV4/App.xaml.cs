@@ -14,10 +14,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,6 +39,7 @@ namespace AudioRecorderV4
         /// </summary>
         public App()
         {
+            ApplicationLanguages.PrimaryLanguageOverride = Thread.CurrentThread.CurrentUICulture.Name;
             this.InitializeComponent();
             Controller = new AudioRecorderToolController(CreateOpenLog());
         }
