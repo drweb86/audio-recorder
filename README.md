@@ -30,4 +30,5 @@ Records audio input and output for conference calls, including Viber, Skype, Tea
 - Initial release with core functionality.
 
 [License](https://github.com/drweb86/conference-audio-recorder/blob/main/LICENSE)
+
 [Privacy Policy](https://github.com/drweb86/conference-audio-recorder/blob/main/Privacy%20Policy.md)
