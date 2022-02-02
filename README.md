@@ -2,11 +2,7 @@
 
 Records audio input and output for conference calls, including Viber, Skype, Teams.
 
-[Get it on Windows Store](https://www.microsoft.com/en-us/p/conference-audio-recorder/9p1gzl37n0mt)
-
-[License](https://github.com/drweb86/conference-audio-recorder/blob/main/LICENSE)
-
-[Privacy Policy](https://github.com/drweb86/conference-audio-recorder/blob/main/Privacy%20Policy.md)
+[Download at Windows Store](https://www.microsoft.com/en-us/p/conference-audio-recorder/9p1gzl37n0mt)
 
 # Screenshots
 
@@ -18,6 +14,10 @@ Records audio input and output for conference calls, including Viber, Skype, Tea
 
 - Simultaneous recording of the microphone and speaker
 
+# Software Requirements
+
+- x64-bit Windows 10
+
 # Hardware Requirements
 
 - Use your microphone
@@ -28,3 +28,6 @@ Records audio input and output for conference calls, including Viber, Skype, Tea
 ## 1.0.4.0
 
 - Initial release with core functionality.
+
+[License](https://github.com/drweb86/conference-audio-recorder/blob/main/LICENSE)
+[Privacy Policy](https://github.com/drweb86/conference-audio-recorder/blob/main/Privacy%20Policy.md)
