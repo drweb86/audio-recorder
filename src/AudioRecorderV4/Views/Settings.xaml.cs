@@ -1,8 +1,9 @@
 ﻿using AudioRecorderV4;
 using Microsoft.UI.Xaml;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using WinRT.Interop;
 
 namespace HDE.AudioRecorder.Views
 {
@@ -46,15 +47,18 @@ namespace HDE.AudioRecorder.Views
             App.Controller.OpenOutputFolder();
         }
 
-        private void OnSaveRecordingToFolder(object sender, RoutedEventArgs e)
+        private async void OnSaveRecordingToFolder(object sender, RoutedEventArgs e)
         {
-            using (var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())
+            var folderPicker = new Windows.Storage.Pickers.FolderPicker();
+            InitializeWithWindow.Initialize(folderPicker, System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle);
+            folderPicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.MusicLibrary;
+            folderPicker.FileTypeFilter.Add("*");
+
+            Windows.Storage.StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+            if (folder != null)
             {
-                folderBrowserDialog.SelectedPath = saveRecordingToFolder;
-                if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-                {
-                    SaveRecordingToFolder = folderBrowserDialog.SelectedPath;
-                }
+                // TODO: set token in folder. var token = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+                SaveRecordingToFolder = folder.Path;
             }
         }
     }
