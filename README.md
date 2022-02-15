@@ -16,7 +16,7 @@ Records audio input and output for conference calls, including Viber, Skype, Tea
 
 # Software Requirements
 
-- x64-bit Windows 10
+- x86 or 64-bit Windows 10
 
 # Hardware Requirements
 
